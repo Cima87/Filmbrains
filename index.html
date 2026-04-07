@@ -130,7 +130,7 @@
 </head>
 <body class="bg-surface text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container">
 <!-- Top Navigation Shell -->
-<nav class="fixed top-0 w-full z-50 bg-neutral-950/40 backdrop-blur-xl border-b border-white/5 shadow-2xl shadow-black/50 flex items-center px-8 h-20">
+<nav class="fixed top-0 w-full z-50 bg-neutral-950/40 shadow-2xl shadow-black/50 flex items-center px-8 h-20">
 <div class="flex-none">
 <button class="text-[#ffbc00] p-2 hover:bg-white/5 transition-all duration-500 cursor-pointer active:scale-95 ease-in-out" onclick="document.body.classList.toggle('menu-open')">
 <span class="material-symbols-outlined">add</span>
@@ -150,20 +150,20 @@
 <a class="font-headline text-4xl md:text-6xl font-bold text-on-surface hover:text-primary transition-colors uppercase tracking-tighter" href="#contact" onclick="document.body.classList.remove('menu-open')">Contact</a>
 </div>
 <!-- SECTION 1: LANDING HERO -->
-<section class="relative h-screen w-full flex items-center justify-center overflow-hidden bg-black" id="hero-section">
-<div class="hero-video-container" id="video-container">
+<section class="relative h-screen w-full flex items-center justify-center overflow-hidden bg-black pt-20" id="hero-section">
+<div class="hero-video-container" id="video-container" style="top: 5rem; height: calc(100% - 5rem);">
 <video autoplay="" id="bg-video" loop="" muted="" playsinline="">
 <source src="FLICKER.mp4" type="video/mp4"/>
 </video>
 </div>
 <!-- Transparent Overlay and Enter Button -->
-<div class="absolute inset-0 z-20 flex items-center justify-center bg-black/20" id="hero-overlay">
+<div class="absolute inset-0 z-20 flex items-center justify-center bg-black/20" id="hero-overlay" style="top: 5rem; height: calc(100% - 5rem);">
 <button class="font-headline text-white font-bold text-4xl uppercase tracking-tighter hover:scale-105 transition-transform duration-500" onclick="enterExperience()">
             PRESS TO ENTER
         </button>
 </div>
 <!-- Replay Overlay (Hidden by default) -->
-<div class="absolute inset-0 z-30 hidden items-center justify-center bg-black" id="replay-overlay">
+<div class="absolute inset-0 z-30 hidden items-center justify-center bg-black" id="replay-overlay" style="top: 5rem; height: calc(100% - 5rem);">
 <button class="font-headline text-white font-bold text-4xl uppercase tracking-tighter hover:scale-105 transition-transform duration-500 flex items-center gap-4" onclick="replayExperience()">
 <span class="material-symbols-outlined text-5xl">replay</span>
             REPLAY
