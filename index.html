@@ -62,10 +62,10 @@
                     "secondary-fixed": "#ffdea3"
             },
             "borderRadius": {
-                    "DEFAULT": "0.125rem",
-                    "lg": "0.25rem",
-                    "xl": "0.5rem",
-                    "full": "0.75rem"
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "1rem",
+                    "full": "9999px"
             },
             "fontFamily": {
                     "headline": ["Montserrat"],
@@ -83,12 +83,18 @@
         ::-webkit-scrollbar { width: 4px; }
         ::-webkit-scrollbar-track { background: #0e0e0e; }
         ::-webkit-scrollbar-thumb { background: #ffbc00; }
+        
         body { 
             scroll-snap-type: y mandatory; 
             overflow-y: scroll; 
             scroll-behavior: smooth; 
             font-family: 'Montserrat', sans-serif;
         }
+        
+        body.scroll-lock {
+            overflow: hidden !important;
+        }
+
         section { scroll-snap-align: start; }
         .glass-card { backdrop-filter: blur(24px); background: rgba(53, 53, 52, 0.4); }
         .diagonal-menu { display: none; }
@@ -126,7 +132,6 @@
             background-size: 100% 4px;
         }
 
-        /* Expanding Video Accordion Styles */
         .accordion-slice {
             transition: width 0.7s cubic-bezier(0.23, 1, 0.32, 1);
             cursor: none;
@@ -147,7 +152,6 @@
             transform: rotate(180deg);
         }
 
-        /* Custom Play Cursor - Updated */
         #play-cursor {
             position: fixed;
             pointer-events: none;
@@ -178,104 +182,16 @@
             display: flex;
             opacity: 1;
         }
+
+        .calendar-day.today {
+            border: 2px solid #ffbc00;
+            border-radius: 9999px;
+        }
     </style>
-<script src="https://player.vimeo.com/api/player.js">
-        let mainPlayer;
-        let modalPlayer;
-        const vimeoId = '721227434';
-
-        function enterExperience() {
-            const container = document.getElementById('video-container');
-            const overlay = document.getElementById('hero-overlay');
-            const replayOverlay = document.getElementById('replay-overlay');
-            
-            container.innerHTML = `<iframe allow="autoplay; fullscreen" allowfullscreen="" frameborder="0" id="vimeo-player" src="https://player.vimeo.com/video/${vimeoId}?autoplay=1&amp;byline=0&amp;title=0&amp;portrait=0"></iframe>`;
-            
-            overlay.classList.add('hidden');
-            replayOverlay.classList.add('hidden');
-
-            const iframe = document.getElementById('vimeo-player');
-            mainPlayer = new Vimeo.Player(iframe);
-
-            mainPlayer.on('ended', function() {
-                replayOverlay.classList.remove('hidden');
-                replayOverlay.classList.add('flex');
-            });
-        }
-
-        function replayExperience() {
-            const replayOverlay = document.getElementById('replay-overlay');
-            replayOverlay.classList.add('hidden');
-            replayOverlay.classList.remove('flex');
-            
-            if (mainPlayer) {
-                mainPlayer.setCurrentTime(0);
-                mainPlayer.play();
-            }
-        }
-
-        // Custom Cursor Logic
-        function updateCursor(e) {
-            const cursor = document.getElementById('play-cursor');
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
-        }
-
-        // Video Modal Logic
-        function openVideoModal(id) {
-            const modal = document.getElementById('video-modal');
-            const container = document.getElementById('modal-player-container');
-            
-            container.innerHTML = `<iframe allow="autoplay; fullscreen" allowfullscreen="" frameborder="0" height="100%" id="modal-vimeo-iframe" src="https://player.vimeo.com/video/${id}?autoplay=1" width="100%"></iframe>`;
-            
-            modal.classList.add('active');
-            modal.style.display = 'flex';
-            
-            const iframe = document.getElementById('modal-vimeo-iframe');
-            modalPlayer = new Vimeo.Player(iframe);
-
-            // Automatically close modal when video ends
-            modalPlayer.on('ended', function() {
-                closeVideoModal();
-            });
-        }
-
-        function closeVideoModal() {
-            const modal = document.getElementById('video-modal');
-            const container = document.getElementById('modal-player-container');
-            
-            if (modalPlayer) {
-                modalPlayer.pause().then(() => {
-                    modal.classList.remove('active');
-                    setTimeout(() => {
-                        modal.style.display = 'none';
-                        container.innerHTML = '';
-                        modalPlayer = null;
-                    }, 400);
-                });
-            } else {
-                modal.classList.remove('active');
-                modal.style.display = 'none';
-                container.innerHTML = '';
-            }
-        }
-
-        // Modal close on click outside
-        window.onclick = function(event) {
-            let calModal = document.getElementById('calendar-modal');
-            if (event.target == calModal) {
-                calModal.classList.remove('active');
-            }
-            
-            let vidModal = document.getElementById('video-modal');
-            if (event.target == vidModal) {
-                closeVideoModal();
-            }
-        }
-    </script>
+<script src="https://player.vimeo.com/api/player.js"></script>
 </head>
-<body class="bg-surface text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container">
-<!-- Top Navigation Shell -->
+<body class="bg-surface text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container scroll-lock">
+<!-- Top Navigation -->
 <nav class="fixed top-0 w-full z-50 bg-neutral-950/40 shadow-2xl shadow-black/50 flex items-center px-8 h-20">
 <div class="flex-none">
 <button class="text-[#ffbc00] p-2 hover:bg-white/5 transition-all duration-500 cursor-pointer active:scale-95 ease-in-out" onclick="document.body.classList.toggle('menu-open')">
@@ -283,8 +199,8 @@
 </button>
 </div>
 <div class="grow text-center text-xl font-bold tracking-tighter text-[#ffbc00] font-headline cursor-pointer active:scale-95 ease-in-out">
-            Simon Köcher - An Application
-        </div>
+        Simon Köcher - An Application
+    </div>
 <div class="flex-none w-10"></div>
 </nav>
 <!-- Dropdown Menu -->
@@ -300,19 +216,19 @@
 <section class="relative h-screen w-full flex items-center justify-center overflow-hidden bg-black pt-20" id="hero-section">
 <div class="hero-video-container" id="video-container" style="top: 5rem; height: calc(100% - 5rem);">
 <video autoplay="" id="bg-video-hero" loop="" muted="" playsinline="">
-<source src="FLICKER.mp4" type="video/mp4"/>
+<source src="https://player.vimeo.com/external/517090081.sd.mp4?s=d03e5c9a173d3288b85750ee0b91e9882f0c7661&amp;profile_id=164&amp;oauth2_token_id=57447761" type="video/mp4"/>
 </video>
 </div>
 <div class="absolute inset-0 z-20 flex items-center justify-center bg-black/20" id="hero-overlay" style="top: 5rem; height: calc(100% - 5rem);">
 <button class="font-headline text-white font-bold text-4xl uppercase tracking-tighter hover:scale-105 transition-transform duration-500" onclick="enterExperience()">
-                PRESS TO ENTER
-            </button>
+            PRESS TO ENTER
+        </button>
 </div>
 <div class="absolute inset-0 z-30 hidden items-center justify-center bg-black" id="replay-overlay" style="top: 5rem; height: calc(100% - 5rem);">
 <button class="font-headline text-white font-bold text-4xl uppercase tracking-tighter hover:scale-105 transition-transform duration-500 flex items-center gap-4" onclick="replayExperience()">
 <span class="material-symbols-outlined text-5xl">replay</span>
-                REPLAY
-            </button>
+            REPLAY
+        </button>
 </div>
 <div class="absolute bottom-10 left-10 flex flex-col gap-1 z-20">
 <p class="font-label text-[8px] text-outline-variant uppercase">Lat: 34.0522 N</p>
@@ -322,7 +238,7 @@
 <!-- SECTION 2: VISION PAGE -->
 <section class="relative h-screen w-full flex flex-col md:flex-row bg-surface overflow-hidden" id="vision">
 <div class="w-full md:w-1/2 h-1/2 md:h-full bg-surface-container-lowest relative group">
-<img class="w-full h-full object-cover opacity-40 grayscale group-hover:grayscale-0 transition-all duration-1000" data-alt="Close-up of a high-end cinema camera lens reflecting golden sunset light in a dark studio setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC2xjMTuDpD5QrQqIaOnrtzW9NiRMeXE6UHCIIFjQVA-BjOv5GFEqSoQqLVCm7vVfxxn8_P2D6BEEPn7jgIF3aJdyKYdTogxrsSwz0fUbsw632hF6d-eRu2dGufP5yw9HXPTvIrj0rvtJc96-1op1ruN4K2uv0jQXPm262n7SVhsBscxYkx6JOObxYQN4KZ2O0zbF-ZnXMPCNNfhztw7lKPm7u0zq-lwxuGPS5E8QErazqjarQVlbPPEn3hih2RNU7gMs9P3y5Yeps"/>
+<img alt="Vision" class="w-full h-full object-cover opacity-40 grayscale group-hover:grayscale-0 transition-all duration-1000" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBmVE31EIaFygSsh8Owy3RG1AK2JTUtnNHQuvLaSU_JnN1mfIw5vxzv4QeBGB5o8hMI-Pdy3DU_ZsisI4oMzvrS9DQw5iiGkCznsn65DSx1XFfHUM8kno6DZd01NOBpn5Dbn2MbKjF6kF3npalRTv2JMQMh6N6JDsMVa7vqcU0ft2lgTEupJFuPGUGj195Lat7_0E2g8fR7vh-iJ9RinWaUy7YlUCE-Lp8CDXwiJ5Tznd9AULUGiSMW1Li0_oSdsPgWWjFV6_ywIHw"/>
 <div class="absolute inset-0 flex items-center justify-center">
 <button class="w-20 h-20 rounded-full border border-primary-container/30 flex items-center justify-center hover:bg-primary-container hover:text-on-primary-container transition-all duration-500">
 <span class="material-symbols-outlined text-4xl" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
@@ -332,94 +248,78 @@
 <div class="w-full md:w-1/2 h-1/2 md:h-full flex flex-col justify-center px-12 md:px-24 bg-surface">
 <div class="border-l-4 border-primary-container pl-8 py-4">
 <h2 class="font-headline text-5xl md:text-7xl font-bold tracking-tighter uppercase mb-6 leading-tight">
-                    my application <span class="text-primary-container">video</span>
+                my application <span class="text-primary-container">video</span>
 </h2>
 </div>
 </div>
 </section>
-<!-- SECTION 3: OTHER WORKS (EXPANDING ACCORDION) -->
+<!-- SECTION 3: OTHER WORKS -->
 <section class="relative h-screen w-full bg-black overflow-hidden" id="other-works" onmousemove="updateCursor(event)">
-<!-- Updated Section Headline -->
 <div class="absolute top-24 left-12 z-40 pointer-events-none">
 <h2 class="font-headline font-bold text-3xl md:text-5xl tracking-[0.1em] uppercase opacity-90 cinematic-glow">
 <span class="text-white">Other</span> <span class="text-[#ffbc00]">Works</span>
 </h2>
 </div>
-<!-- Custom Play Cursor -->
 <div id="play-cursor">PLAY</div>
 <div class="flex w-full h-full">
-<!-- Slice 1: ODDSET - JINX -->
+<!-- Slice 1 -->
 <div class="accordion-slice relative w-1/4 h-full overflow-hidden group border-r border-white/5" onclick="openVideoModal('1113549824')">
 <div class="absolute inset-0 w-full h-full z-0 pointer-events-none">
-<div style="padding:56.25% 0 0 0;position:relative;height:100%;">
-<iframe allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" frameborder="0" referrerpolicy="strict-origin-when-cross-origin" src="https://player.vimeo.com/video/1113549824?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&amp;background=1" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="250701_Oddset_TheJinks_Film2_Kosovo.mp4"></iframe>
-</div>
+<iframe class="w-full h-full object-cover" frameborder="0" src="https://player.vimeo.com/video/1113549824?background=1"></iframe>
 </div>
 <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-80 z-10 group-hover:opacity-40 transition-opacity"></div>
-<!-- Expanded Content -->
 <div class="absolute inset-0 flex flex-col justify-end p-12 opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-100 z-20">
 <h3 class="font-headline text-5xl md:text-7xl font-black uppercase tracking-tighter mb-4 text-white">ODDSET - JINX</h3>
-<p class="max-w-md text-sm md:text-base text-on-surface-variant font-body mb-8 leading-relaxed">A high-energy sports production.</p>
 </div>
-<!-- Vertical Title (Collapsed State) -->
 <div class="absolute inset-0 flex items-center justify-center group-hover:opacity-0 transition-opacity duration-300 pointer-events-none z-20">
 <span class="vertical-text font-headline text-2xl md:text-4xl font-bold uppercase tracking-widest text-white/40">ODDSET - JINX</span>
 </div>
 </div>
-<!-- Slice 2: UL - Film critic -->
+<!-- Slice 2 -->
 <div class="accordion-slice relative w-1/4 h-full overflow-hidden group border-r border-white/5" onclick="openVideoModal('875093743')">
 <div class="absolute inset-0 w-full h-full z-0 pointer-events-none">
-<div style="padding:56.25% 0 0 0;position:relative;height:100%;">
-<iframe allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" frameborder="0" referrerpolicy="strict-origin-when-cross-origin" src="https://player.vimeo.com/video/875093743?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&amp;background=1" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="UL - FILM CRITIC"></iframe>
-</div>
+<iframe class="w-full h-full object-cover" frameborder="0" src="https://player.vimeo.com/video/875093743?background=1"></iframe>
 </div>
 <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-80 z-10 group-hover:opacity-40 transition-opacity"></div>
 <div class="absolute inset-0 flex flex-col justify-end p-12 opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-100 z-20">
 <h3 class="font-headline text-5xl md:text-7xl font-black uppercase tracking-tighter mb-4 text-white">UL - Film critic</h3>
-<p class="max-w-md text-sm md:text-base text-on-surface-variant font-body mb-8 leading-relaxed">An insightful look into cinema.</p>
 </div>
 <div class="absolute inset-0 flex items-center justify-center group-hover:opacity-0 transition-opacity duration-300 pointer-events-none z-20">
 <span class="vertical-text font-headline text-2xl md:text-4xl font-bold uppercase tracking-widest text-white/40">UL - Film critic</span>
 </div>
 </div>
-<!-- Slice 3: How I Became a Communist -->
+<!-- Slice 3 -->
 <div class="accordion-slice relative w-1/4 h-full overflow-hidden group border-r border-white/5" onclick="openVideoModal('1133765348')">
 <div class="absolute inset-0 w-full h-full z-0 pointer-events-none">
-<div style="padding:75% 0 0 0;position:relative;height:100%;">
-<iframe allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" frameborder="0" referrerpolicy="strict-origin-when-cross-origin" src="https://player.vimeo.com/video/1133765348?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&amp;background=1" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="How I Became a Communist_small"></iframe>
-</div>
+<iframe class="w-full h-full object-cover" frameborder="0" src="https://player.vimeo.com/video/1133765348?background=1"></iframe>
 </div>
 <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-80 z-10 group-hover:opacity-40 transition-opacity"></div>
 <div class="absolute inset-0 flex flex-col justify-end p-12 opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-100 z-20">
 <h3 class="font-headline text-5xl md:text-7xl font-black uppercase tracking-tighter mb-4 text-white">How I Became a Communist</h3>
-<p class="max-w-md text-sm md:text-base text-on-surface-variant font-body mb-8 leading-relaxed">A compelling narrative short.</p>
 </div>
 <div class="absolute inset-0 flex items-center justify-center group-hover:opacity-0 transition-opacity duration-300 pointer-events-none z-20">
 <span class="vertical-text font-headline text-2xl md:text-4xl font-bold uppercase tracking-widest text-white/40">How I Became a Communist</span>
 </div>
 </div>
-<!-- Slice 4: Ericsson - Vision -->
+<!-- Slice 4 -->
 <div class="accordion-slice relative w-1/4 h-full overflow-hidden group" onclick="openVideoModal('576940667')">
 <div class="absolute inset-0 w-full h-full z-0 pointer-events-none">
-<div style="padding:28.13% 0 0 0;position:relative;height:100%;">
-<iframe allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" frameborder="0" referrerpolicy="strict-origin-when-cross-origin" src="https://player.vimeo.com/video/576940667?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&amp;background=1" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="ERICSSON - VISION"></iframe>
-</div>
+<iframe class="w-full h-full object-cover" frameborder="0" src="https://player.vimeo.com/video/576940667?background=1"></iframe>
 </div>
 <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-80 z-10 group-hover:opacity-40 transition-opacity"></div>
 <div class="absolute inset-0 flex flex-col justify-end p-12 opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-100 z-20">
 <h3 class="font-headline text-5xl md:text-7xl font-black uppercase tracking-tighter mb-4 text-white">Ericsson - Vision</h3>
-<p class="max-w-md text-sm md:text-base text-on-surface-variant font-body mb-8 leading-relaxed">Future-facing corporate storytelling.</p>
 </div>
 <div class="absolute inset-0 flex items-center justify-center group-hover:opacity-0 transition-opacity duration-300 pointer-events-none z-20">
 <span class="vertical-text font-headline text-2xl md:text-4xl font-bold uppercase tracking-widest text-white/40">Ericsson - Vision</span>
 </div>
 </div>
 </div>
-<!-- Video Modal for Works -->
+<!-- Video Modal -->
 <div class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/95 backdrop-blur-xl" id="video-modal">
 <div class="relative w-[80vw] h-[80vh] bg-black shadow-2xl flex items-center justify-center">
 <button class="absolute -top-12 right-0 text-white hover:text-[#ffbc00] transition-colors flex items-center gap-2 font-headline uppercase tracking-widest text-xs" onclick="closeVideoModal()">
-                    Close <span class="material-symbols-outlined text-2xl">close</span>
+                Close <span class="material-symbols-outlined text-2xl">close</span>
 </button>
 <div class="w-full h-full" id="modal-player-container"></div>
 </div>
@@ -429,28 +329,25 @@
 <section class="relative h-screen w-full flex flex-col justify-center items-center overflow-hidden bg-surface" id="contact">
 <div class="absolute inset-0 z-0">
 <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black z-10"></div>
-<img class="w-full h-full object-cover opacity-10" data-alt="Futuristic glowing terminal interface" src="https://lh3.googleusercontent.com/aida-public/AB6AXB1__io07KvyDOb7xGlSvCYU9tiC6dDrDLpA9OH-0ugw6r0AgdYCM3OVxJ-FrnAaPKUQizhPJf2UNse2AyjH2c4iq9zRu5QUtGvqdJsf6jbe4x3jI8URIr27CrB_7WzJZbVC2FkrlEbRRqoySwIx5BXy8i57YbzRA5lpV82Mr_KwqEy0Slj_g3l5RFGwC5_LIad0Q3PfOmuTtwOfEaU0SUW6hxMBv8UwKpXn5Xs5ckd6cTTbsw_DapSDiBiChuaW4im-PQYTfvPJCE"/>
+<img alt="Contact Background" class="w-full h-full object-cover opacity-10" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCaC3GbkdcWurfNxUf-mPpNpt99b0rDOlwIXe8rlTCFJvlVdCrYVQYJFY3frTppyetfVkhBPmUdv09oUCJwczX7I1H4CY8srjraMIblu6gqDdCc4IXzohoQ8srYrA8-bye8Z-79yGC4Bv5zz3Lkf-eJ23FkU-EuL68fQQyQt3gU1hu4jjoI6fwg2pGbGv0W89OGHcntWDMgEUfRudKsE6Bed8GRuREucxotcPX3Or1XKsrBTGnauhhAQ4ZNZqHxbcRnlZh2uK67RPg"/>
 <div class="absolute inset-0 scanline opacity-20 pointer-events-none"></div>
 </div>
 <div class="relative z-20 w-full max-w-6xl px-8 flex flex-col items-center">
 <div class="mb-16 text-center">
-<span class="font-label text-primary tracking-[0.6em] text-[10px] uppercase mb-4 block opacity-60">System Protocol: Communication</span>
 <h2 class="font-headline text-7xl md:text-[120px] font-bold tracking-tighter text-on-surface leading-[0.8] cinematic-glow">
-                    LET’S <span class="text-primary-container">TALK</span>
+                LET'S <span class="text-primary-container">TALK</span>
 </h2>
 </div>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-12 w-full max-w-3xl border-t border-b border-white/10 py-12 mb-16 relative">
 <div class="flex flex-col items-center md:items-start group">
-<span class="font-label text-[10px] text-outline-variant uppercase tracking-widest mb-2 group-hover:text-primary transition-colors">Direct Channel</span>
-<a class="font-headline text-2xl md:text-3xl text-on-surface hover:text-primary transition-all duration-300 tracking-tight" href="mailto:hello@simonkoecher.com">
-                        hello@simonkoecher.com
-                    </a>
+<a class="font-headline text-2xl md:text-3xl text-on-surface hover:text-primary transition-all duration-300 tracking-tight" href="mailto:hello@simonkoecher.com?subject=We%20at%20Framebrains%20want%20to%20thank%20you%20for%20your%20application.&amp;body=You%20are%20hired!">
+                    hello@simonkoecher.com
+                </a>
 </div>
 <div class="flex flex-col items-center md:items-end group">
-<span class="font-label text-[10px] text-outline-variant uppercase tracking-widest mb-2 group-hover:text-primary transition-colors">Secure Line</span>
-<p class="font-headline text-2xl md:text-3xl text-on-surface-variant tracking-tight tabular-nums">
-                        +46 70 921 4543
-                    </p>
+<p class="font-headline text-2xl md:text-3xl text-on-surface tracking-tight tabular-nums">
+                    +46 70 921 4543
+                </p>
 </div>
 <div class="absolute -top-[1px] -left-[1px] w-4 h-4 border-t border-l border-primary/40"></div>
 <div class="absolute -top-[1px] -right-[1px] w-4 h-4 border-t border-r border-primary/40"></div>
@@ -467,13 +364,14 @@
 <div class="fixed inset-0 z-[70] hidden items-center justify-center p-4 bg-black/80 backdrop-blur-md" id="calendar-modal">
 <div class="relative bg-surface-container-low border border-outline-variant w-full max-w-2xl overflow-hidden rounded-xl shadow-2xl">
 <div class="p-6 border-b border-outline-variant flex justify-between items-center bg-surface-container">
-<h3 class="font-headline text-xl font-bold text-primary uppercase tracking-widest">Select Availability</h3>
+<h3 class="font-headline text-xl font-bold text-primary uppercase tracking-widest">January 2026</h3>
 <button class="text-on-surface-variant hover:text-primary" onclick="document.getElementById('calendar-modal').classList.remove('active')">
 <span class="material-symbols-outlined">close</span>
 </button>
 </div>
 <div class="p-6">
-<div class="grid grid-cols-7 gap-2 text-center mb-4">
+<!-- Simple functional representation of current week in 2026 -->
+<div class="grid grid-cols-7 gap-2 text-center mb-8">
 <div class="font-label text-[10px] text-outline uppercase">Mon</div>
 <div class="font-label text-[10px] text-outline uppercase">Tue</div>
 <div class="font-label text-[10px] text-outline uppercase">Wed</div>
@@ -481,142 +379,141 @@
 <div class="font-label text-[10px] text-outline uppercase">Fri</div>
 <div class="font-label text-[10px] text-outline-variant uppercase">Sat</div>
 <div class="font-label text-[10px] text-outline-variant uppercase">Sun</div>
-<button class="aspect-square flex items-center justify-center border border-outline-variant/30 text-xs hover:bg-primary/10 transition-colors">12</button>
-<button class="aspect-square flex items-center justify-center border border-outline-variant/30 text-xs hover:bg-primary/10 transition-colors">13</button>
-<button class="aspect-square flex items-center justify-center border border-primary/50 bg-primary/5 text-xs text-primary font-bold">14</button>
-<button class="aspect-square flex items-center justify-center border border-outline-variant/30 text-xs hover:bg-primary/10 transition-colors">15</button>
-<button class="aspect-square flex items-center justify-center border border-outline-variant/30 text-xs hover:bg-primary/10 transition-colors">16</button>
-<div class="aspect-square flex items-center justify-center text-xs text-outline-variant">17</div>
-<div class="aspect-square flex items-center justify-center text-xs text-outline-variant">18</div>
+<div class="aspect-square flex items-center justify-center text-xs text-outline-variant">29</div>
+<div class="aspect-square flex items-center justify-center text-xs text-outline-variant">30</div>
+<div class="aspect-square flex items-center justify-center text-xs text-outline-variant">31</div>
+<!-- Jan 1 2026 is a Thursday -->
+<button class="aspect-square flex items-center justify-center border border-outline-variant/30 text-xs hover:bg-primary/10 transition-colors">1</button>
+<button class="aspect-square flex items-center justify-center border border-outline-variant/30 text-xs hover:bg-primary/10 transition-colors">2</button>
+<div class="aspect-square flex items-center justify-center text-xs text-outline-variant">3</div>
+<div class="aspect-square flex items-center justify-center text-xs text-outline-variant">4</div>
+<!-- Week 2 -->
+<button class="aspect-square flex items-center justify-center border border-outline-variant/30 text-xs hover:bg-primary/10 transition-colors">5</button>
+<button class="aspect-square flex items-center justify-center border border-outline-variant/30 text-xs hover:bg-primary/10 transition-colors">6</button>
+<button class="aspect-square flex items-center justify-center border border-outline-variant/30 text-xs hover:bg-primary/10 transition-colors">7</button>
+<button class="calendar-day today aspect-square flex items-center justify-center text-xs text-primary font-bold">8</button>
+<button class="aspect-square flex items-center justify-center border border-outline-variant/30 text-xs hover:bg-primary/10 transition-colors">9</button>
+<div class="aspect-square flex items-center justify-center text-xs text-outline-variant">10</div>
+<div class="aspect-square flex items-center justify-center text-xs text-outline-variant">11</div>
 </div>
-<div class="space-y-3">
+<div class="space-y-4">
 <p class="font-label text-[10px] text-outline uppercase tracking-widest">Available Slots (CET)</p>
-<div class="grid grid-cols-3 gap-2">
-<button class="py-2 border border-outline-variant text-xs hover:bg-primary hover:text-on-primary transition-all">09:00</button>
-<button class="py-2 border border-outline-variant text-xs hover:bg-primary hover:text-on-primary transition-all">13:30</button>
-<button class="py-2 border border-outline-variant text-xs hover:bg-primary hover:text-on-primary transition-all">16:00</button>
+<div class="grid grid-cols-3 gap-3">
+<button class="py-3 border border-outline-variant text-xs hover:bg-primary hover:text-on-primary transition-all rounded">09:00</button>
+<button class="py-3 border border-outline-variant text-xs hover:bg-primary hover:text-on-primary transition-all rounded">13:30</button>
+<button class="py-3 border border-outline-variant text-xs hover:bg-primary hover:text-on-primary transition-all rounded">15:00</button>
 </div>
 </div>
 </div>
 <div class="p-6 bg-surface-container-highest/50 flex justify-end">
-<button class="px-6 py-2 bg-primary-container text-on-primary-container font-label text-[10px] uppercase tracking-widest font-bold">Initialize Link</button>
+<button class="px-8 py-3 bg-primary-container text-on-primary-container font-label text-[10px] uppercase tracking-widest font-bold rounded" onclick="window.open('https://calendar.google.com/', '_blank')">Confirm</button>
 </div>
 </div>
 </div>
 </section>
-<!-- Footer Shell -->
+<!-- Footer -->
 <footer class="bg-[#0e0e0e] w-full py-12 px-8">
-<div class="flex flex-col md:flex-row justify-between items-center w-full max-w-7xl mx-auto gap-4">
+<div class="flex flex-col md:flex-row justify-center items-center w-full max-w-7xl mx-auto">
 <div class="font-headline text-[10px] uppercase tracking-widest text-neutral-500">
-                © 2024 SIMON KÖCHER. ACCESS GRANTED.
-            </div>
-<div class="flex gap-12">
-<a class="text-neutral-600 hover:text-[#ffdfa7] transition-colors hover:underline decoration-1 underline-offset-4 font-headline text-[10px] uppercase tracking-widest" href="#">TERMINAL</a>
-<a class="text-neutral-600 hover:text-[#ffdfa7] transition-colors hover:underline decoration-1 underline-offset-4 font-headline text-[10px] uppercase tracking-widest" href="#">SECURITY</a>
-<a class="text-[#ffbc00] hover:text-[#ffdfa7] transition-colors hover:underline decoration-1 underline-offset-4 font-headline text-[10px] uppercase tracking-widest" href="#">LOGOUT</a>
-</div>
-<div class="flex gap-4">
-<div class="w-8 h-8 rounded-full border border-white/5 flex items-center justify-center hover:bg-primary/10 transition-all cursor-pointer">
-<span class="material-symbols-outlined text-[14px] text-neutral-500">public</span>
-</div>
-<div class="w-8 h-8 rounded-full border border-white/5 flex items-center justify-center hover:bg-primary/10 transition-all cursor-pointer">
-<span class="material-symbols-outlined text-[14px] text-neutral-500">terminal</span>
-</div>
-</div>
+            © 2026 SIMON KÖCHER. ACCESS GRANTED.
+        </div>
 </div>
 </footer>
 <script>
-        let mainPlayer;
-        let modalPlayer;
-        const vimeoId = '721227434';
+    // Scroll lock logic
+    window.addEventListener('load', () => {
+        setTimeout(() => {
+            document.body.classList.remove('scroll-lock');
+        }, 8000);
+    });
 
-        function enterExperience() {
-            const container = document.getElementById('video-container');
-            const overlay = document.getElementById('hero-overlay');
-            const replayOverlay = document.getElementById('replay-overlay');
-            
-            container.innerHTML = `<iframe allow="autoplay; fullscreen" allowfullscreen="" frameborder="0" id="vimeo-player" src="https://player.vimeo.com/video/${vimeoId}?autoplay=1&amp;byline=0&amp;title=0&amp;portrait=0"></iframe>`;
-            
-            overlay.classList.add('hidden');
-            replayOverlay.classList.add('hidden');
+    let mainPlayer;
+    let modalPlayer;
+    const vimeoId = '721227434';
 
-            const iframe = document.getElementById('vimeo-player');
-            mainPlayer = new Vimeo.Player(iframe);
+    function enterExperience() {
+        const container = document.getElementById('video-container');
+        const overlay = document.getElementById('hero-overlay');
+        const replayOverlay = document.getElementById('replay-overlay');
+        
+        container.innerHTML = `<iframe allow="autoplay; fullscreen" allowfullscreen="" frameborder="0" id="vimeo-player" src="https://player.vimeo.com/video/${vimeoId}?autoplay=1&amp;byline=0&amp;title=0&amp;portrait=0"></iframe>`;
+        
+        overlay.classList.add('hidden');
+        replayOverlay.classList.add('hidden');
 
-            mainPlayer.on('ended', function() {
-                replayOverlay.classList.remove('hidden');
-                replayOverlay.classList.add('flex');
-            });
+        const iframe = document.getElementById('vimeo-player');
+        mainPlayer = new Vimeo.Player(iframe);
+
+        mainPlayer.on('ended', function() {
+            replayOverlay.classList.remove('hidden');
+            replayOverlay.classList.add('flex');
+        });
+    }
+
+    function replayExperience() {
+        const replayOverlay = document.getElementById('replay-overlay');
+        replayOverlay.classList.add('hidden');
+        replayOverlay.classList.remove('flex');
+        
+        if (mainPlayer) {
+            mainPlayer.setCurrentTime(0);
+            mainPlayer.play();
         }
+    }
 
-        function replayExperience() {
-            const replayOverlay = document.getElementById('replay-overlay');
-            replayOverlay.classList.add('hidden');
-            replayOverlay.classList.remove('flex');
-            
-            if (mainPlayer) {
-                mainPlayer.setCurrentTime(0);
-                mainPlayer.play();
-            }
-        }
+    function updateCursor(e) {
+        const cursor = document.getElementById('play-cursor');
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top = e.clientY + 'px';
+    }
 
-        // Custom Cursor Logic
-        function updateCursor(e) {
-            const cursor = document.getElementById('play-cursor');
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
-        }
+    function openVideoModal(id) {
+        const modal = document.getElementById('video-modal');
+        const container = document.getElementById('modal-player-container');
+        
+        container.innerHTML = `<iframe allow="autoplay; fullscreen" allowfullscreen="" frameborder="0" height="100%" id="modal-vimeo-iframe" src="https://player.vimeo.com/video/${id}?autoplay=1" width="100%"></iframe>`;
+        
+        modal.classList.add('active');
+        modal.style.display = 'flex';
+        
+        const iframe = document.getElementById('modal-vimeo-iframe');
+        modalPlayer = new Vimeo.Player(iframe);
 
-        // Video Modal Logic
-        function openVideoModal(id) {
-            const modal = document.getElementById('video-modal');
-            const container = document.getElementById('modal-player-container');
-            
-            container.innerHTML = `<iframe allow="autoplay; fullscreen" allowfullscreen="" frameborder="0" height="100%" id="modal-vimeo-iframe" src="https://player.vimeo.com/video/${id}?autoplay=1" width="100%"></iframe>`;
-            
-            modal.classList.add('active');
-            modal.style.display = 'flex';
-            
-            const iframe = document.getElementById('modal-vimeo-iframe');
-            modalPlayer = new Vimeo.Player(iframe);
+        modalPlayer.on('ended', function() {
+            closeVideoModal();
+        });
+    }
 
-            // Automatically close modal when video ends
-            modalPlayer.on('ended', function() {
-                closeVideoModal();
-            });
-        }
-
-        function closeVideoModal() {
-            const modal = document.getElementById('video-modal');
-            const container = document.getElementById('modal-player-container');
-            
-            if (modalPlayer) {
-                modalPlayer.pause().then(() => {
-                    modal.classList.remove('active');
-                    setTimeout(() => {
-                        modal.style.display = 'none';
-                        container.innerHTML = '';
-                        modalPlayer = null;
-                    }, 400);
-                });
-            } else {
+    function closeVideoModal() {
+        const modal = document.getElementById('video-modal');
+        const container = document.getElementById('modal-player-container');
+        
+        if (modalPlayer) {
+            modalPlayer.pause().then(() => {
                 modal.classList.remove('active');
-                modal.style.display = 'none';
-                container.innerHTML = '';
-            }
+                setTimeout(() => {
+                    modal.style.display = 'none';
+                    container.innerHTML = '';
+                    modalPlayer = null;
+                }, 400);
+            });
+        } else {
+            modal.classList.remove('active');
+            modal.style.display = 'none';
+            container.innerHTML = '';
         }
+    }
 
-        // Modal close on click outside
-        window.onclick = function(event) {
-            let calModal = document.getElementById('calendar-modal');
-            if (event.target == calModal) {
-                calModal.classList.remove('active');
-            }
-            
-            let vidModal = document.getElementById('video-modal');
-            if (event.target == vidModal) {
-                closeVideoModal();
-            }
+    window.onclick = function(event) {
+        let calModal = document.getElementById('calendar-modal');
+        if (event.target == calModal) {
+            calModal.classList.remove('active');
         }
-    </script>
+        
+        let vidModal = document.getElementById('video-modal');
+        if (event.target == vidModal) {
+            closeVideoModal();
+        }
+    }
+</script>
 </body></html>
