@@ -126,6 +126,7 @@
             background-size: 100% 4px;
         }
     </style>
+<script src="https://player.vimeo.com/api/player.js"></script>
 </head>
 <body class="bg-surface text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container">
 <!-- Top Navigation Shell -->
@@ -155,10 +156,17 @@
 <source src="FLICKER.mp4" type="video/mp4"/>
 </video>
 </div>
-<!-- Transparent Overlay and Button -->
+<!-- Transparent Overlay and Enter Button -->
 <div class="absolute inset-0 z-20 flex items-center justify-center bg-black/20" id="hero-overlay">
 <button class="font-headline text-white font-bold text-4xl uppercase tracking-tighter hover:scale-105 transition-transform duration-500" onclick="enterExperience()">
             PRESS TO ENTER
+        </button>
+</div>
+<!-- Replay Overlay (Hidden by default) -->
+<div class="absolute inset-0 z-30 hidden items-center justify-center bg-black" id="replay-overlay">
+<button class="font-headline text-white font-bold text-4xl uppercase tracking-tighter hover:scale-105 transition-transform duration-500 flex items-center gap-4" onclick="replayExperience()">
+<span class="material-symbols-outlined text-5xl">replay</span>
+            REPLAY
         </button>
 </div>
 <div class="absolute bottom-10 left-10 flex flex-col gap-1 z-20">
@@ -188,7 +196,7 @@
 <section class="relative h-screen w-full flex flex-col justify-center items-center overflow-hidden bg-surface" id="contact">
 <div class="absolute inset-0 z-0">
 <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black z-10"></div>
-<img class="w-full h-full object-cover opacity-10" data-alt="Futuristic glowing terminal interface" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB1__io07KvyDOb7xGlSvCYU9tiC6dDrDLpA9OH-0ugw6r0AgdYCM3OVxJ-FrnAaPKUQizhPJf2UNse2AyjH2c4iq9zRu5QUtGvqdJsf6jbe4x3jI8URIr27CrB_7WzJZbVC2FkrlEbRRqoySwIx5BXy8i57YbzRA5lpV82Mr_KwqEy0Slj_g3l5RFGwC5_LIad0Q3PfOmuTtwOfEaU0SUW6hxMBv8UwKpXn5Xs5ckd6cTTbsw_DapSDiBiChuaW4im-PQYTfvPJCE"/>
+<img class="w-full h-full object-cover opacity-10" data-alt="Futuristic glowing terminal interface" src="https://lh3.googleusercontent.com/aida-public/AB6AXB1__io07KvyDOb7xGlSvCYU9tiC6dDrDLpA9OH-0ugw6r0AgdYCM3OVxJ-FrnAaPKUQizhPJf2UNse2AyjH2c4iq9zRu5QUtGvqdJsf6jbe4x3jI8URIr27CrB_7WzJZbVC2FkrlEbRRqoySwIx5BXy8i57YbzRA5lpV82Mr_KwqEy0Slj_g3l5RFGwC5_LIad0Q3PfOmuTtwOfEaU0SUW6hxMBv8UwKpXn5Xs5ckd6cTTbsw_DapSDiBiChuaW4im-PQYTfvPJCE"/>
 <div class="absolute inset-0 scanline opacity-20 pointer-events-none"></div>
 </div>
 <div class="relative z-20 w-full max-w-6xl px-8 flex flex-col items-center">
@@ -225,7 +233,6 @@
 <button class="group relative px-12 py-6 overflow-hidden transition-all duration-500 border border-primary/20 hover:border-primary" onclick="document.getElementById('calendar-modal').classList.add('active')">
 <div class="absolute inset-0 bg-primary/5 group-hover:bg-primary/10 transition-colors"></div>
 <span class="relative z-10 font-label text-primary-container tracking-[0.4em] text-xs uppercase font-bold">Book a Meeting</span>
-<!-- Minimal Glow Accent -->
 <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-1/2 h-[1px] bg-primary-container blur-sm opacity-0 group-hover:opacity-100 transition-opacity"></div>
 </button>
 </div>
@@ -292,15 +299,38 @@
 </div>
 </footer>
 <script>
+    let player;
+    const vimeoId = '721227434';
+
     function enterExperience() {
         const container = document.getElementById('video-container');
         const overlay = document.getElementById('hero-overlay');
+        const replayOverlay = document.getElementById('replay-overlay');
         
-        // Updated Vimeo ID placeholder as requested
-        const vimeoId = '1179874118'; 
+        // Load Vimeo iframe unmuted (without muted=1/background=1 to ensure sound is enabled)
+        container.innerHTML = `<iframe id="vimeo-player" src="https://player.vimeo.com/video/${vimeoId}?autoplay=1&byline=0&title=0&portrait=0" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>`;
         
-        container.innerHTML = `<iframe src="https://player.vimeo.com/video/${vimeoId}?autoplay=1&background=1&loop=1&byline=0&title=0" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>`;
         overlay.classList.add('hidden');
+        replayOverlay.classList.add('hidden');
+
+        const iframe = document.getElementById('vimeo-player');
+        player = new Vimeo.Player(iframe);
+
+        player.on('ended', function() {
+            replayOverlay.classList.remove('hidden');
+            replayOverlay.classList.add('flex');
+        });
+    }
+
+    function replayExperience() {
+        const replayOverlay = document.getElementById('replay-overlay');
+        replayOverlay.classList.add('hidden');
+        replayOverlay.classList.remove('flex');
+        
+        if (player) {
+            player.setCurrentTime(0);
+            player.play();
+        }
     }
 
     // Modal close on click outside
