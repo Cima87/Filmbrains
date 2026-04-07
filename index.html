@@ -5,7 +5,7 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Simon Köcher | An Application</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;500;600;700;800;900&amp;family=Pirata+One&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <script id="tailwind-config">
       tailwind.config = {
@@ -68,9 +68,10 @@
                     "full": "9999px"
             },
             "fontFamily": {
-                    "headline": ["Montserrat"],
-                    "body": ["Montserrat"],
-                    "label": ["Montserrat"]
+                    "headline": ["Montserrat", "sans-serif"],
+                    "body": ["Montserrat", "sans-serif"],
+                    "label": ["Montserrat", "sans-serif"],
+                    "pirata": ["Pirata One", "serif"]
             }
           },
         },
@@ -163,8 +164,8 @@
             justify-content: center;
             font-family: 'Montserrat', sans-serif;
             font-weight: 700;
-            font-size: 24px;
-            letter-spacing: 0.2em;
+            font-size: 32px;
+            letter-spacing: 0.1em;
             transform: translate(-50%, -50%) scale(0);
             transition: transform 0.2s cubic-bezier(0.23, 1, 0.32, 1);
         }
@@ -183,9 +184,16 @@
             opacity: 1;
         }
 
-        .calendar-day.today {
-            border: 2px solid #ffbc00;
-            border-radius: 9999px;
+        .calendar-day.selected {
+            background-color: #ffbc00;
+            color: #131313;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        .time-slot.selected {
+            background-color: #ffbc00;
+            color: #131313;
+            border-color: #ffbc00;
         }
     </style>
 <script src="https://player.vimeo.com/api/player.js"></script>
@@ -198,7 +206,7 @@
 <span class="material-symbols-outlined">add</span>
 </button>
 </div>
-<div class="grow text-center text-xl font-bold tracking-tighter text-[#ffbc00] font-headline cursor-pointer active:scale-95 ease-in-out">
+<div class="grow text-center text-4xl font-normal tracking-wide text-[#ffbc00] font-pirata cursor-pointer active:scale-95 ease-in-out">
         Simon Köcher - An Application
     </div>
 <div class="flex-none w-10"></div>
@@ -208,9 +216,9 @@
 <button class="absolute top-8 left-8 text-primary" onclick="document.body.classList.remove('menu-open')">
 <span class="material-symbols-outlined text-4xl">close</span>
 </button>
-<a class="font-headline text-4xl md:text-6xl font-bold text-on-surface hover:text-primary transition-colors uppercase tracking-tighter" href="#vision" onclick="document.body.classList.remove('menu-open')">Vision</a>
-<a class="font-headline text-4xl md:text-6xl font-bold text-on-surface hover:text-primary transition-colors uppercase tracking-tighter" href="#other-works" onclick="document.body.classList.remove('menu-open')">Works</a>
-<a class="font-headline text-4xl md:text-6xl font-bold text-on-surface hover:text-primary transition-colors uppercase tracking-tighter" href="#contact" onclick="document.body.classList.remove('menu-open')">Contact</a>
+<a class="font-headline text-4xl md:text-8xl font-bold text-on-surface hover:text-primary transition-colors uppercase tracking-tighter" href="#vision" onclick="document.body.classList.remove('menu-open')">Vision</a>
+<a class="font-headline text-4xl md:text-8xl font-bold text-on-surface hover:text-primary transition-colors uppercase tracking-tighter" href="#other-works" onclick="document.body.classList.remove('menu-open')">Works</a>
+<a class="font-headline text-4xl md:text-8xl font-bold text-on-surface hover:text-primary transition-colors uppercase tracking-tighter" href="#contact" onclick="document.body.classList.remove('menu-open')">Contact</a>
 </div>
 <!-- SECTION 1: LANDING HERO -->
 <section class="relative h-screen w-full flex items-center justify-center overflow-hidden bg-black pt-20" id="hero-section">
@@ -220,19 +228,19 @@
 </video>
 </div>
 <div class="absolute inset-0 z-20 flex items-center justify-center bg-black/20" id="hero-overlay" style="top: 5rem; height: calc(100% - 5rem);">
-<button class="font-headline text-white font-bold text-4xl uppercase tracking-tighter hover:scale-105 transition-transform duration-500" onclick="enterExperience()">
+<button class="font-pirata text-white font-normal text-6xl md:text-8xl uppercase tracking-wider hover:scale-105 transition-transform duration-500" onclick="enterExperience()">
             PRESS TO ENTER
         </button>
 </div>
 <div class="absolute inset-0 z-30 hidden items-center justify-center bg-black" id="replay-overlay" style="top: 5rem; height: calc(100% - 5rem);">
-<button class="font-headline text-white font-bold text-4xl uppercase tracking-tighter hover:scale-105 transition-transform duration-500 flex items-center gap-4" onclick="replayExperience()">
-<span class="material-symbols-outlined text-5xl">replay</span>
+<button class="font-pirata text-white font-normal text-6xl md:text-8xl uppercase tracking-wider hover:scale-105 transition-transform duration-500 flex items-center gap-4" onclick="replayExperience()">
+<span class="material-symbols-outlined text-7xl">replay</span>
             REPLAY
         </button>
 </div>
 <div class="absolute bottom-10 left-10 flex flex-col gap-1 z-20">
-<p class="font-label text-[8px] text-outline-variant uppercase">Lat: 34.0522 N</p>
-<p class="font-label text-[8px] text-outline-variant uppercase">Long: 118.2437 W</p>
+<p class="font-label text-[10px] text-outline-variant uppercase font-medium">Lat: 34.0522 N</p>
+<p class="font-label text-[10px] text-outline-variant uppercase font-medium">Long: 118.2437 W</p>
 </div>
 </section>
 <!-- SECTION 2: VISION PAGE -->
@@ -247,7 +255,7 @@
 </div>
 <div class="w-full md:w-1/2 h-1/2 md:h-full flex flex-col justify-center px-12 md:px-24 bg-surface">
 <div class="border-l-4 border-primary-container pl-8 py-4">
-<h2 class="font-headline text-5xl md:text-7xl font-bold tracking-tighter uppercase mb-6 leading-tight">
+<h2 class="font-headline text-5xl md:text-8xl font-black tracking-tighter uppercase mb-6 leading-[0.9]">
                 my application <span class="text-primary-container">video</span>
 </h2>
 </div>
@@ -256,7 +264,7 @@
 <!-- SECTION 3: OTHER WORKS -->
 <section class="relative h-screen w-full bg-black overflow-hidden" id="other-works" onmousemove="updateCursor(event)">
 <div class="absolute top-24 left-12 z-40 pointer-events-none">
-<h2 class="font-headline font-bold text-3xl md:text-5xl tracking-[0.1em] uppercase opacity-90 cinematic-glow">
+<h2 class="font-headline font-bold text-4xl md:text-7xl tracking-tighter uppercase opacity-90 cinematic-glow">
 <span class="text-white">Other</span> <span class="text-[#ffbc00]">Works</span>
 </h2>
 </div>
@@ -269,7 +277,7 @@
 </div>
 <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-80 z-10 group-hover:opacity-40 transition-opacity"></div>
 <div class="absolute inset-0 flex flex-col justify-end p-12 opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-100 z-20">
-<h3 class="font-headline text-5xl md:text-7xl font-black uppercase tracking-tighter mb-4 text-white">ODDSET - JINX</h3>
+<h3 class="font-headline text-4xl md:text-7xl font-black uppercase tracking-tighter mb-4 text-white">ODDSET - JINX</h3>
 </div>
 <div class="absolute inset-0 flex items-center justify-center group-hover:opacity-0 transition-opacity duration-300 pointer-events-none z-20">
 <span class="vertical-text font-headline text-2xl md:text-4xl font-bold uppercase tracking-widest text-white/40">ODDSET - JINX</span>
@@ -282,7 +290,7 @@
 </div>
 <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-80 z-10 group-hover:opacity-40 transition-opacity"></div>
 <div class="absolute inset-0 flex flex-col justify-end p-12 opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-100 z-20">
-<h3 class="font-headline text-5xl md:text-7xl font-black uppercase tracking-tighter mb-4 text-white">UL - Film critic</h3>
+<h3 class="font-headline text-4xl md:text-7xl font-black uppercase tracking-tighter mb-4 text-white">UL - Film critic</h3>
 </div>
 <div class="absolute inset-0 flex items-center justify-center group-hover:opacity-0 transition-opacity duration-300 pointer-events-none z-20">
 <span class="vertical-text font-headline text-2xl md:text-4xl font-bold uppercase tracking-widest text-white/40">UL - Film critic</span>
@@ -295,7 +303,7 @@
 </div>
 <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-80 z-10 group-hover:opacity-40 transition-opacity"></div>
 <div class="absolute inset-0 flex flex-col justify-end p-12 opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-100 z-20">
-<h3 class="font-headline text-5xl md:text-7xl font-black uppercase tracking-tighter mb-4 text-white">How I Became a Communist</h3>
+<h3 class="font-headline text-4xl md:text-7xl font-black uppercase tracking-tighter mb-4 text-white">How I Became a Communist</h3>
 </div>
 <div class="absolute inset-0 flex items-center justify-center group-hover:opacity-0 transition-opacity duration-300 pointer-events-none z-20">
 <span class="vertical-text font-headline text-2xl md:text-4xl font-bold uppercase tracking-widest text-white/40">How I Became a Communist</span>
@@ -308,7 +316,7 @@
 </div>
 <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-80 z-10 group-hover:opacity-40 transition-opacity"></div>
 <div class="absolute inset-0 flex flex-col justify-end p-12 opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-100 z-20">
-<h3 class="font-headline text-5xl md:text-7xl font-black uppercase tracking-tighter mb-4 text-white">Ericsson - Vision</h3>
+<h3 class="font-headline text-4xl md:text-7xl font-black uppercase tracking-tighter mb-4 text-white">Ericsson - Vision</h3>
 </div>
 <div class="absolute inset-0 flex items-center justify-center group-hover:opacity-0 transition-opacity duration-300 pointer-events-none z-20">
 <span class="vertical-text font-headline text-2xl md:text-4xl font-bold uppercase tracking-widest text-white/40">Ericsson - Vision</span>
@@ -318,8 +326,8 @@
 <!-- Video Modal -->
 <div class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/95 backdrop-blur-xl" id="video-modal">
 <div class="relative w-[80vw] h-[80vh] bg-black shadow-2xl flex items-center justify-center">
-<button class="absolute -top-12 right-0 text-white hover:text-[#ffbc00] transition-colors flex items-center gap-2 font-headline uppercase tracking-widest text-xs" onclick="closeVideoModal()">
-                Close <span class="material-symbols-outlined text-2xl">close</span>
+<button class="absolute -top-12 right-0 text-white hover:text-[#ffbc00] transition-colors flex items-center gap-2 font-headline uppercase tracking-widest text-lg" onclick="closeVideoModal()">
+                Close <span class="material-symbols-outlined text-3xl">close</span>
 </button>
 <div class="w-full h-full" id="modal-player-container"></div>
 </div>
@@ -334,18 +342,18 @@
 </div>
 <div class="relative z-20 w-full max-w-6xl px-8 flex flex-col items-center">
 <div class="mb-16 text-center">
-<h2 class="font-headline text-7xl md:text-[120px] font-bold tracking-tighter text-on-surface leading-[0.8] cinematic-glow">
+<h2 class="font-headline text-7xl md:text-[140px] font-black tracking-tighter text-on-surface leading-[0.7] cinematic-glow">
                 LET'S <span class="text-primary-container">TALK</span>
 </h2>
 </div>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-12 w-full max-w-3xl border-t border-b border-white/10 py-12 mb-16 relative">
 <div class="flex flex-col items-center md:items-start group">
-<a class="font-headline text-2xl md:text-3xl text-on-surface hover:text-primary transition-all duration-300 tracking-tight" href="mailto:hello@simonkoecher.com?subject=We%20at%20Framebrains%20want%20to%20thank%20you%20for%20your%20application.&amp;body=You%20are%20hired!">
+<a class="font-headline text-2xl md:text-4xl font-bold text-on-surface hover:text-primary transition-all duration-300 tracking-tight" href="mailto:hello@simonkoecher.com">
                     hello@simonkoecher.com
                 </a>
 </div>
 <div class="flex flex-col items-center md:items-end group">
-<p class="font-headline text-2xl md:text-3xl text-on-surface tracking-tight tabular-nums">
+<p class="font-headline text-2xl md:text-4xl font-bold text-on-surface tracking-tight tabular-nums">
                     +46 70 921 4543
                 </p>
 </div>
@@ -354,67 +362,56 @@
 <div class="absolute -bottom-[1px] -left-[1px] w-4 h-4 border-b border-l border-primary/40"></div>
 <div class="absolute -bottom-[1px] -right-[1px] w-4 h-4 border-b border-r border-primary/40"></div>
 </div>
-<button class="group relative px-12 py-6 overflow-hidden transition-all duration-500 border border-primary/20 hover:border-primary" onclick="document.getElementById('calendar-modal').classList.add('active')">
+<button class="group relative px-16 py-8 overflow-hidden transition-all duration-500 border border-primary/20 hover:border-primary" onclick="document.getElementById('calendar-modal').classList.add('active')">
 <div class="absolute inset-0 bg-primary/5 group-hover:bg-primary/10 transition-colors"></div>
-<span class="relative z-10 font-label text-primary-container tracking-[0.4em] text-xs uppercase font-bold">Book a Meeting</span>
+<span class="relative z-10 font-headline text-primary-container tracking-[0.2em] text-xl uppercase font-bold">Book a Meeting</span>
 <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-1/2 h-[1px] bg-primary-container blur-sm opacity-0 group-hover:opacity-100 transition-opacity"></div>
 </button>
 </div>
 <!-- Booking Modal -->
-<div class="fixed inset-0 z-[70] hidden items-center justify-center p-4 bg-black/80 backdrop-blur-md" id="calendar-modal">
-<div class="relative bg-surface-container-low border border-outline-variant w-full max-w-2xl overflow-hidden rounded-xl shadow-2xl">
-<div class="p-6 border-b border-outline-variant flex justify-between items-center bg-surface-container">
-<h3 class="font-headline text-xl font-bold text-primary uppercase tracking-widest">January 2026</h3>
-<button class="text-on-surface-variant hover:text-primary" onclick="document.getElementById('calendar-modal').classList.remove('active')">
-<span class="material-symbols-outlined">close</span>
+<div class="fixed inset-0 z-[70] hidden items-center justify-center p-4 bg-black/90 backdrop-blur-xl" id="calendar-modal">
+<div class="relative bg-surface-container-low border border-outline-variant w-full max-w-xl overflow-hidden rounded-lg shadow-2xl">
+<div class="p-8 border-b border-outline-variant flex justify-between items-center bg-surface-container">
+<div class="flex items-center gap-4">
+<button class="text-on-surface-variant hover:text-primary" onclick="changeMonth(-1)"><span class="material-symbols-outlined">chevron_left</span></button>
+<h3 class="font-headline text-2xl font-bold text-primary uppercase tracking-widest" id="current-month-display">January 2026</h3>
+<button class="text-on-surface-variant hover:text-primary" onclick="changeMonth(1)"><span class="material-symbols-outlined">chevron_right</span></button>
+</div>
+<button class="text-on-surface-variant hover:text-primary transition-transform hover:rotate-90" onclick="closeCalendarModal()">
+<span class="material-symbols-outlined text-3xl">close</span>
 </button>
 </div>
-<div class="p-6">
-<!-- Simple functional representation of current week in 2026 -->
-<div class="grid grid-cols-7 gap-2 text-center mb-8">
-<div class="font-label text-[10px] text-outline uppercase">Mon</div>
-<div class="font-label text-[10px] text-outline uppercase">Tue</div>
-<div class="font-label text-[10px] text-outline uppercase">Wed</div>
-<div class="font-label text-[10px] text-outline uppercase">Thu</div>
-<div class="font-label text-[10px] text-outline uppercase">Fri</div>
-<div class="font-label text-[10px] text-outline-variant uppercase">Sat</div>
-<div class="font-label text-[10px] text-outline-variant uppercase">Sun</div>
-<div class="aspect-square flex items-center justify-center text-xs text-outline-variant">29</div>
-<div class="aspect-square flex items-center justify-center text-xs text-outline-variant">30</div>
-<div class="aspect-square flex items-center justify-center text-xs text-outline-variant">31</div>
-<!-- Jan 1 2026 is a Thursday -->
-<button class="aspect-square flex items-center justify-center border border-outline-variant/30 text-xs hover:bg-primary/10 transition-colors">1</button>
-<button class="aspect-square flex items-center justify-center border border-outline-variant/30 text-xs hover:bg-primary/10 transition-colors">2</button>
-<div class="aspect-square flex items-center justify-center text-xs text-outline-variant">3</div>
-<div class="aspect-square flex items-center justify-center text-xs text-outline-variant">4</div>
-<!-- Week 2 -->
-<button class="aspect-square flex items-center justify-center border border-outline-variant/30 text-xs hover:bg-primary/10 transition-colors">5</button>
-<button class="aspect-square flex items-center justify-center border border-outline-variant/30 text-xs hover:bg-primary/10 transition-colors">6</button>
-<button class="aspect-square flex items-center justify-center border border-outline-variant/30 text-xs hover:bg-primary/10 transition-colors">7</button>
-<button class="calendar-day today aspect-square flex items-center justify-center text-xs text-primary font-bold">8</button>
-<button class="aspect-square flex items-center justify-center border border-outline-variant/30 text-xs hover:bg-primary/10 transition-colors">9</button>
-<div class="aspect-square flex items-center justify-center text-xs text-outline-variant">10</div>
-<div class="aspect-square flex items-center justify-center text-xs text-outline-variant">11</div>
+<div class="p-8">
+<div class="grid grid-cols-7 gap-3 text-center mb-6">
+<div class="font-label text-[10px] text-outline uppercase font-bold">Mon</div>
+<div class="font-label text-[10px] text-outline uppercase font-bold">Tue</div>
+<div class="font-label text-[10px] text-outline uppercase font-bold">Wed</div>
+<div class="font-label text-[10px] text-outline uppercase font-bold">Thu</div>
+<div class="font-label text-[10px] text-outline uppercase font-bold">Fri</div>
+<div class="font-label text-[10px] text-outline-variant uppercase font-bold">Sat</div>
+<div class="font-label text-[10px] text-outline-variant uppercase font-bold">Sun</div>
+<!-- Calendar Days JS injection point -->
+<div class="contents" id="calendar-days-grid"></div>
 </div>
-<div class="space-y-4">
-<p class="font-label text-[10px] text-outline uppercase tracking-widest">Available Slots (CET)</p>
-<div class="grid grid-cols-3 gap-3">
-<button class="py-3 border border-outline-variant text-xs hover:bg-primary hover:text-on-primary transition-all rounded">09:00</button>
-<button class="py-3 border border-outline-variant text-xs hover:bg-primary hover:text-on-primary transition-all rounded">13:30</button>
-<button class="py-3 border border-outline-variant text-xs hover:bg-primary hover:text-on-primary transition-all rounded">15:00</button>
+<div class="space-y-6 pt-4 border-t border-outline-variant/30 opacity-0 transition-opacity duration-300" id="time-slots-container">
+<p class="font-headline text-lg text-primary uppercase tracking-widest text-center">Select Time Slot (CET)</p>
+<div class="grid grid-cols-3 gap-4">
+<button class="time-slot py-4 border border-outline-variant text-xl font-headline font-bold hover:bg-primary/10 transition-all rounded" onclick="selectTime('09:00', this)">09:00</button>
+<button class="time-slot py-4 border border-outline-variant text-xl font-headline font-bold hover:bg-primary/10 transition-all rounded" onclick="selectTime('13:30', this)">13:30</button>
+<button class="time-slot py-4 border border-outline-variant text-xl font-headline font-bold hover:bg-primary/10 transition-all rounded" onclick="selectTime('15:00', this)">15:00</button>
 </div>
 </div>
 </div>
-<div class="p-6 bg-surface-container-highest/50 flex justify-end">
-<button class="px-8 py-3 bg-primary-container text-on-primary-container font-label text-[10px] uppercase tracking-widest font-bold rounded" onclick="window.open('https://calendar.google.com/', '_blank')">Confirm</button>
+<div class="p-8 bg-surface-container-highest/30 flex justify-center">
+<button class="w-full px-12 py-5 bg-primary text-on-primary font-headline text-xl uppercase tracking-widest font-black disabled:opacity-30 disabled:grayscale transition-all" disabled="" id="confirm-btn" onclick="handleConfirmation()">Confirm Selection</button>
 </div>
 </div>
 </div>
 </section>
 <!-- Footer -->
-<footer class="bg-[#0e0e0e] w-full py-12 px-8">
+<footer class="bg-[#0e0e0e] w-full py-16 px-8 border-t border-white/5">
 <div class="flex flex-col md:flex-row justify-center items-center w-full max-w-7xl mx-auto">
-<div class="font-headline text-[10px] uppercase tracking-widest text-neutral-500">
+<div class="font-headline text-sm font-semibold uppercase tracking-[0.4em] text-neutral-500">
             © 2026 SIMON KÖCHER. ACCESS GRANTED.
         </div>
 </div>
@@ -425,11 +422,114 @@
         setTimeout(() => {
             document.body.classList.remove('scroll-lock');
         }, 8000);
+        renderCalendar();
     });
 
     let mainPlayer;
     let modalPlayer;
     const vimeoId = '721227434';
+
+    // Calendar State
+    let currentDate = new Date(2026, 0, 1);
+    let selectedDate = null;
+    let selectedTime = null;
+
+    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+    function renderCalendar() {
+        const grid = document.getElementById('calendar-days-grid');
+        const monthDisplay = document.getElementById('current-month-display');
+        grid.innerHTML = '';
+        
+        const year = currentDate.getFullYear();
+        const month = currentDate.getMonth();
+        monthDisplay.innerText = `${months[month]} ${year}`;
+
+        const firstDayOfMonth = new Date(year, month, 1).getDay();
+        const daysInMonth = new Date(year, month + 1, 0).getDate();
+        
+        const offset = firstDayOfMonth === 0 ? 6 : firstDayOfMonth - 1;
+
+        for (let i = 0; i < offset; i++) {
+            const el = document.createElement('div');
+            el.className = "aspect-square flex items-center justify-center text-xs text-outline-variant/30";
+            grid.appendChild(el);
+        }
+
+        for (let day = 1; day <= daysInMonth; day++) {
+            const btn = document.createElement('button');
+            btn.className = "aspect-square flex items-center justify-center border border-outline-variant/10 text-lg font-headline font-bold hover:bg-primary/20 transition-colors";
+            btn.innerText = day;
+            
+            const dayOfWeek = new Date(year, month, day).getDay();
+            if (dayOfWeek === 0 || dayOfWeek === 6) {
+                btn.className += " text-outline-variant";
+            }
+
+            if (selectedDate && selectedDate.day === day && selectedDate.month === month && selectedDate.year === year) {
+                btn.classList.add('selected');
+            }
+
+            btn.onclick = () => selectDate(day, month, year, btn);
+            grid.appendChild(btn);
+        }
+    }
+
+    function changeMonth(dir) {
+        currentDate.setMonth(currentDate.getMonth() + dir);
+        renderCalendar();
+    }
+
+    function selectDate(day, month, year, element) {
+        document.querySelectorAll('.calendar-day.selected').forEach(el => el.classList.remove('selected'));
+        element.classList.add('selected');
+        element.classList.add('calendar-day'); 
+        
+        selectedDate = { day, month, year };
+        document.getElementById('time-slots-container').classList.remove('opacity-0');
+        checkCompletion();
+    }
+
+    function selectTime(time, element) {
+        document.querySelectorAll('.time-slot.selected').forEach(el => el.classList.remove('selected'));
+        element.classList.add('selected');
+        selectedTime = time;
+        checkCompletion();
+    }
+
+    function checkCompletion() {
+        const btn = document.getElementById('confirm-btn');
+        if (selectedDate && selectedTime) {
+            btn.disabled = false;
+        } else {
+            btn.disabled = true;
+        }
+    }
+
+    function handleConfirmation() {
+        const dateStr = `${selectedDate.year}${String(selectedDate.month + 1).padStart(2, '0')}${String(selectedDate.day).padStart(2, '0')}`;
+        const startTime = selectedTime.replace(':', '');
+        
+        let endHour = parseInt(selectedTime.split(':')[0]);
+        let endMin = parseInt(selectedTime.split(':')[1]) + 30;
+        if(endMin >= 60) { endHour++; endMin -= 60; }
+        const endTimeStr = `${String(endHour).padStart(2, '0')}${String(endMin).padStart(2, '0')}`;
+
+        const url = `https://calendar.google.com/calendar/u/0/r/eventedit?text=Meeting+with+Simon+Koecher&details=Job+Interview/Application+Discussion&dates=${dateStr}T${startTime}00/${dateStr}T${endTimeStr}00&ctz=Europe/Berlin`;
+        
+        window.open(url, '_blank');
+        closeCalendarModal();
+    }
+
+    function closeCalendarModal() {
+        document.getElementById('calendar-modal').classList.remove('active');
+        selectedDate = null;
+        selectedTime = null;
+        document.getElementById('time-slots-container').classList.add('opacity-0');
+        document.querySelectorAll('.time-slot.selected').forEach(el => el.classList.remove('selected'));
+        renderCalendar();
+        checkCompletion();
+    }
 
     function enterExperience() {
         const container = document.getElementById('video-container');
@@ -507,7 +607,7 @@
     window.onclick = function(event) {
         let calModal = document.getElementById('calendar-modal');
         if (event.target == calModal) {
-            calModal.classList.remove('active');
+            closeCalendarModal();
         }
         
         let vidModal = document.getElementById('video-modal');
