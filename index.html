@@ -170,14 +170,15 @@
             justify-content: center;
             font-family: 'Montserrat', sans-serif;
             font-weight: 700;
-            font-size: 32px;
+            font-size: 24px;
             letter-spacing: 0.1em;
             transform: translate(-50%, -50%) scale(0);
             transition: transform 0.2s cubic-bezier(0.23, 1, 0.32, 1);
         }
         @media (hover: hover) {
             .accordion-slice:hover ~ #play-cursor,
-            #other-works:hover #play-cursor {
+            #other-works:hover #play-cursor,
+            .vision-trigger:hover ~ #play-cursor {
                 transform: translate(-50%, -50%) scale(1);
             }
         }
@@ -203,10 +204,16 @@
             color: #131313;
             border-color: #ffbc00;
         }
+
+        .vision-trigger {
+            cursor: none;
+        }
     </style>
 <script src="https://player.vimeo.com/api/player.js"></script>
 </head>
-<body class="bg-surface text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container scroll-lock">
+<body class="bg-surface text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container scroll-lock" onmousemove="updateCursor(event)">
+<!-- Play Cursor -->
+<div id="play-cursor">PLAY</div>
 <!-- Top Navigation -->
 <nav class="fixed top-0 w-full z-50 bg-neutral-950/40 shadow-2xl shadow-black/50 flex items-center px-4 md:px-8 h-20 opacity-0 pointer-events-none transition-opacity duration-700" id="main-nav">
 <div class="flex-none">
@@ -253,30 +260,29 @@
 </section>
 <!-- SECTION 2: VISION PAGE -->
 <section class="relative min-h-screen w-full flex flex-col md:flex-row bg-surface overflow-hidden" id="vision">
-<div class="w-full md:w-1/2 h-[50vh] md:h-full bg-surface-container-lowest relative group">
-<img alt="Vision" class="w-full h-full object-cover opacity-40 grayscale md:group-hover:grayscale-0 transition-all duration-1000" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBmVE31EIaFygSsh8Owy3RG1AK2JTUtnNHQuvLaSU_JnN1mfIw5vxzv4QeBGB5o8hMI-Pdy3DU_ZsisI4oMzvrS9DQw5iiGkCznsn65DSx1XFfHUM8kno6DZd01NOBpn5Dbn2MbKjF6kF3npalRTv2JMQMh6N6JDsMVa7vqcU0ft2lgTEupJFuPGUGj195Lat7_0E2g8fR7vh-iJ9RinWaUy7YlUCE-Lp8CDXwiJ5Tznd9AULUGiSMW1Li0_oSdsPgWWjFV6_ywIHw"/>
+<div class="w-full md:w-1/2 h-[50vh] md:h-full bg-surface-container-lowest relative group vision-trigger" onclick="openVideoModal('1181183507')">
+<img alt="Vision" class="w-full h-full object-cover opacity-60 grayscale md:group-hover:grayscale-0 transition-all duration-1000" src="https://lh3.googleusercontent.com/aida/ADBb0ujlJkbfAICvxrKOjLY-9RMuHBWcoev2IBmbagvc-dVNaQ_SCuidQmEXEJJ2Pl6LyGuEy-NuIraaotNwOgLETTQP0lsBInRd8u7rHkCYMejNR0vzN8d9-BjCM41kzOuxQfLMmNm6dxBbLFNuxvVtpkUR5h5JNGs2D3wlwuyfuxihi8Egt9SYeKlwwbjJmzThTEMxenD6g0fCSEQgeIPrYtz5ujQvaUpVjPod76OfTl_3Z-eO_97_hfx4-CPME9VDgcVeZ39TSQRDcQ"/>
 <div class="absolute inset-0 flex items-center justify-center">
-<button class="w-16 h-16 md:w-20 md:h-20 rounded-full border border-primary-container/30 flex items-center justify-center hover:bg-primary-container hover:text-on-primary-container transition-all duration-500" onclick="enterExperience()">
+<button class="w-16 h-16 md:w-20 md:h-20 rounded-full border border-primary-container/30 flex items-center justify-center hover:bg-primary-container hover:text-on-primary-container transition-all duration-500">
 <span class="material-symbols-outlined text-3xl md:text-4xl" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
 </button>
 </div>
 </div>
-<div class="w-full md:w-1/2 h-[50vh] md:h-full flex flex-col justify-center px-8 md:px-24 bg-surface">
-<div class="border-l-4 border-primary-container pl-6 md:pl-8 py-4">
-<h2 class="font-headline text-4xl md:text-8xl font-black tracking-tighter uppercase mb-6 leading-[0.9]">
-                my application <span class="text-primary-container">video</span>
+<div class="w-full md:w-1/2 h-[50vh] md:h-full flex flex-col justify-center items-center px-8 md:px-24 bg-surface">
+<div class="border-l-4 border-primary-container pl-6 md:pl-8 py-4 text-center md:text-left">
+<h2 class="font-headline text-4xl md:text-7xl font-black tracking-tighter uppercase mb-6 leading-[0.9]">
+                my <span class="text-primary-container">(first)</span> application <span class="text-primary-container">video</span>
 </h2>
 </div>
 </div>
 </section>
 <!-- SECTION 3: OTHER WORKS -->
-<section class="relative h-screen w-full bg-black overflow-hidden" id="other-works" onmousemove="updateCursor(event)">
+<section class="relative h-screen w-full bg-black overflow-hidden" id="other-works">
 <div class="absolute top-16 md:top-24 left-6 md:left-12 z-40 pointer-events-none">
 <h2 class="font-headline font-bold text-3xl md:text-7xl tracking-tighter uppercase opacity-90 cinematic-glow">
 <span class="text-white">Other</span> <span class="text-[#ffbc00]">Works</span>
 </h2>
 </div>
-<div id="play-cursor">PLAY</div>
 <div class="flex flex-col md:flex-row w-full h-full">
 <!-- Slice 1 -->
 <div class="accordion-slice relative h-1/4 md:h-full overflow-hidden group border-b md:border-b-0 md:border-r border-white/5" onclick="openVideoModal('1113549824')">
@@ -333,7 +339,7 @@
 </div>
 <!-- Video Modal -->
 <div class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/95 backdrop-blur-xl" id="video-modal">
-<div class="relative w-[95vw] md:w-[80vw] h-[60vh] md:h-[80vh] bg-black shadow-2xl flex items-center justify-center">
+<div class="relative w-[90vw] md:w-[70vw] h-[50vh] md:h-[70vh] bg-black shadow-2xl flex items-center justify-center">
 <button class="absolute -top-12 right-0 text-white hover:text-[#ffbc00] transition-colors flex items-center gap-2 font-headline uppercase tracking-widest text-lg" onclick="closeVideoModal()">
                 Close <span class="material-symbols-outlined text-3xl">close</span>
 </button>
@@ -581,7 +587,6 @@
     }
 
     function updateCursor(e) {
-        if (window.innerWidth < 768) return;
         const cursor = document.getElementById('play-cursor');
         cursor.style.left = e.clientX + 'px';
         cursor.style.top = e.clientY + 'px';
