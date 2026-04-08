@@ -189,7 +189,7 @@
 <!-- Play Cursor -->
 <div id="play-cursor">PLAY</div>
 <!-- Top Navigation -->
-<nav class="fixed top-0 w-full z-[100] bg-black h-20 flex items-center px-4 md:px-8 opacity-0 pointer-events-none transition-opacity duration-700" id="main-nav">
+<nav class="fixed top-0 w-full z-[100] bg-black h-20 flex items-center px-4 md:px-8 opacity-0 pointer-events-none transition-opacity duration-700 border-b border-white/5" id="main-nav">
 <div class="flex-none">
 <button class="text-[#ffbc00] p-2 hover:bg-white/5 transition-all duration-500 cursor-pointer active:scale-95 ease-in-out" onclick="document.body.classList.toggle('menu-open')">
 <span class="material-symbols-outlined">add</span>
@@ -217,9 +217,7 @@
 </video>
 </div>
 <div class="absolute inset-0 z-20 flex items-center justify-center bg-black/20 px-4 text-center" id="hero-overlay">
-<button class="font-pirata text-white font-normal text-5xl md:text-8xl uppercase tracking-tighter hover:scale-105 transition-transform duration-500 cinematic-glow" onclick="enterExperience()">
-            PRESS TO ENTER
-        </button>
+<button class="font-pirata text-white font-normal text-5xl md:text-8xl uppercase tracking-tighter hover:scale-105 transition-transform duration-500 cinematic-glow" onclick="enterExperience()">PRESS TO ENTER</button>
 </div>
 <div class="absolute inset-0 z-30 hidden items-center justify-center bg-black px-4 text-center" id="replay-overlay">
 <button class="font-headline text-white font-black text-5xl md:text-8xl uppercase tracking-tighter hover:scale-105 transition-transform duration-500 flex items-center gap-4" onclick="replayExperience()">
@@ -227,27 +225,16 @@
             REPLAY
         </button>
 </div>
-<div class="absolute bottom-6 left-6 md:bottom-10 md:left-10 flex flex-col gap-1 z-20">
-<p class="font-label text-[10px] text-outline-variant uppercase font-medium">Lat: 34.0522 N</p>
-<p class="font-label text-[10px] text-outline-variant uppercase font-medium">Long: 118.2437 W</p>
-</div>
 </section>
 <!-- SECTION 2: APPLICATION VIDEO -->
-<section class="relative min-h-screen w-full flex flex-col md:flex-row bg-surface overflow-hidden" id="application-video">
-<div class="w-full md:w-1/2 h-[50vh] md:h-full bg-surface-container-lowest relative group custom-cursor-area" onclick="openVideoModal('1181183507')" onmouseenter="document.body.classList.add('cursor-active')" onmouseleave="document.body.classList.remove('cursor-active')">
-<img alt="Vision" class="w-full h-full object-cover opacity-60 grayscale md:group-hover:grayscale-0 transition-all duration-1000" src="https://lh3.googleusercontent.com/aida/ADBb0ujlJkbfAICvxrKOjLY-9RMuHBWcoev2IBmbagvc-dVNaQ_SCuidQmEXEJJ2Pl6LyGuEy-NuIraaotNwOgLETTQP0lsBInRd8u7rHkCYMejNR0vzN8d9-BjCM41kzOuxQfLMmNm6dxBbLFNuxvVtpkUR5h5JNGs2D3wlwuyfuxihi8Egt9SYeKlwwbjJmzThTEMxenD6g0fCSEQgeIPrYtz5ujQvaUpVjPod76OfTl_3Z-eO_97_hfx4-CPME9VDgcVeZ39TSQRDcQ"/>
-<div class="absolute inset-0 flex items-center justify-center pointer-events-none">
-<button class="w-16 h-16 md:w-20 md:h-20 rounded-full border border-primary-container/30 flex items-center justify-center bg-black/40 text-white transition-all duration-500">
-<span class="material-symbols-outlined text-3xl md:text-4xl" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
-</button>
+<section class="relative h-[60vh] md:h-[70vh] w-full flex flex-col md:flex-row bg-surface overflow-hidden" id="application-video">
+<div class="w-full md:w-1/2 h-full bg-surface-container-lowest relative group custom-cursor-area" onclick="openVideoModal('1181183507')" onmouseenter="document.body.classList.add('cursor-active')" onmouseleave="document.body.classList.remove('cursor-active')">
+<img alt="Vision" class="w-full h-full object-cover opacity-80 grayscale md:group-hover:grayscale-0 transition-all duration-1000" src="https://lh3.googleusercontent.com/aida/ADBb0ujkyngF6Uohlh0gHmUyxneR6YznODClDciAWBjvZJU64wBkhoCwj5-4H2Xp8BrLJTMV71-4hvs_yAduhc8Ie55-qPOaUjTC5yqWs_26A7HWAmbqg3gUQxtSoKd1pwKJaM2aXhb5_EuSfs9KC4zbM3QhGigppUYSpp5cfGj66AvQa_mNSLZIbYJdf6Eq4z6JCEgoTrtk1nVvu3DID1tYLN6yDRF0XXG-q2rHmbn2l53z2bEKceyXTH8RjAGd48UvSNMqSPUbFTeavw"/>
 </div>
-</div>
-<div class="w-full md:w-1/2 h-[50vh] md:h-full flex flex-col justify-center items-center md:items-start px-8 md:px-24 bg-surface">
-<div class="border-l-4 border-primary-container pl-6 md:pl-10 py-4">
-<h2 class="font-headline text-4xl md:text-7xl font-black tracking-tighter uppercase mb-6 leading-[0.9]">
+<div class="w-full md:w-1/2 h-full flex flex-col justify-center items-center md:items-start px-8 md:px-24 bg-surface">
+<div class="border-l-4 border-primary-container pl-6 md:pl-10 py-4 flex flex-col justify-center"><h2 class="font-headline text-4xl md:text-7xl font-black tracking-tighter uppercase leading-[0.9]">
                 my <span class="text-primary-container">(first)</span><br/>application <span class="text-primary-container">video</span>
-</h2>
-</div>
+</h2></div>
 </div>
 </section>
 <!-- SECTION 3: OTHER WORKS (Gallery) -->
