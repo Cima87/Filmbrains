@@ -209,9 +209,9 @@
 <a class="font-headline text-4xl md:text-8xl font-bold text-on-surface hover:text-primary transition-colors uppercase tracking-tighter" href="#contact" onclick="document.body.classList.remove('menu-open')">Contact</a>
 </div>
 <!-- SECTION 1: LANDING HERO -->
-<section class="relative h-screen w-full flex items-center justify-center overflow-hidden bg-black pt-20" id="hero-section">
+<section class="relative h-screen w-full flex items-center justify-center overflow-hidden bg-black" id="hero-section">
 <div class="hero-video-container" id="video-container">
-<!-- Initially FLICKER.mp4 background from framebrains -->
+<!-- Intro video from framebrains GitHub -->
 <video autoplay="" id="bg-video-hero" loop="" muted="" playsinline="">
 <source src="https://framebrains.github.io/FLICKER.mp4" type="video/mp4"/>
 </video>
@@ -232,9 +232,11 @@
 <img alt="Vision" class="w-full h-full object-cover opacity-80 grayscale md:group-hover:grayscale-0 transition-all duration-1000" src="https://lh3.googleusercontent.com/aida/ADBb0ujkyngF6Uohlh0gHmUyxneR6YznODClDciAWBjvZJU64wBkhoCwj5-4H2Xp8BrLJTMV71-4hvs_yAduhc8Ie55-qPOaUjTC5yqWs_26A7HWAmbqg3gUQxtSoKd1pwKJaM2aXhb5_EuSfs9KC4zbM3QhGigppUYSpp5cfGj66AvQa_mNSLZIbYJdf6Eq4z6JCEgoTrtk1nVvu3DID1tYLN6yDRF0XXG-q2rHmbn2l53z2bEKceyXTH8RjAGd48UvSNMqSPUbFTeavw"/>
 </div>
 <div class="w-full md:w-1/2 h-full flex flex-col justify-center items-center md:items-start px-8 md:px-24 bg-surface">
-<div class="border-l-4 border-primary-container pl-6 md:pl-10 py-4 flex flex-col justify-center"><h2 class="font-headline text-4xl md:text-7xl font-black tracking-tighter uppercase leading-[0.9]">
+<div class="border-l-4 border-primary-container pl-6 md:pl-10 py-4 flex flex-col justify-center">
+<h2 class="font-headline text-4xl md:text-7xl font-black tracking-tighter uppercase leading-[0.9]">
                 my <span class="text-primary-container">(first)</span><br/>application <span class="text-primary-container">video</span>
-</h2></div>
+</h2>
+</div>
 </div>
 </section>
 <!-- SECTION 3: OTHER WORKS (Gallery) -->
@@ -335,8 +337,9 @@
 </div>
 </div>
 <div class="relative z-20 w-full flex justify-center pb-12">
-<img alt="Decorative GIF" class="w-[200px] opacity-60 grayscale hover:grayscale-0 transition-all duration-700 pointer-events-none" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC8s4YJYGPNx5_almQuMrDFcxILKjjQ85fDFOnKNQzyVDl0nME0b6624yA4UsJtjT-SbazODTLYHLiA4Yld17UnRnJPNjAhqyzlmqnH87SrQjB2sGNJ9RayP9jOuKN21HPRh1hcO4I76LCME9dbAiVoe_egMPVZFxiima_MPzRkPxyEfNyloHHU7qVZT7O2NDV3DY5zzvBapFcKbp_XcQWQ2gTOJFIySxLkFANLmjmeK7ODr5owLXJQau6iELhTpPqQaYo3KLEq0NI"/>
-</div></section>
+<img alt="Drake GIF" class="w-[200px] opacity-60 grayscale hover:grayscale-0 transition-all duration-700 pointer-events-none" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBzp1ZuTKtA4snAwkjDRlLUPhEDxJV3rBstgOqktgFJLSyAyceyI06x8LwuNhdlCF3Re2ygKArQD0Js9w7VtVQ2SVuPSvLlePEki-UZjpsg-eUjExJHV1TLejo1SMIAt3YNpSSGDcS2uyLJofORMn9YYm_3hTcktAQ5CiUqUP6xkp9556ZW-zGBg9Sio6iIoWmcoObrIQVlpmmzF8caObHucEbuBZIXmdTghuWxDwije0kI-44JpkZYLPXqT92aEWxeG8ENXp1-MDw"/>
+</div>
+</section>
 <!-- Footer -->
 <footer class="bg-[#0e0e0e] w-full py-12 md:py-16 px-8 border-t border-white/5">
 <div class="flex flex-col md:flex-row justify-center items-center w-full max-w-7xl mx-auto">
@@ -365,7 +368,10 @@
         const replayOverlay = document.getElementById('replay-overlay');
         const nav = document.getElementById('main-nav');
         
-        // Remove flicker video and add main Vimeo player
+        // Corrected behavior: Hide the intro video/overlay and reveal content
+        // The prompt says "Clicking the button must hide the intro layer to reveal the main content"
+        // We do this by swapping out the background video and unlocking the experience
+        
         container.innerHTML = `<iframe allow="autoplay; fullscreen" allowfullscreen="" frameborder="0" id="vimeo-player" src="https://player.vimeo.com/video/${vimeoId}?autoplay=1&amp;byline=0&amp;title=0&amp;portrait=0" class="w-full h-full object-cover"></iframe>`;
         
         overlay.classList.add('hidden');
