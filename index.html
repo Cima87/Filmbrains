@@ -33,7 +33,7 @@
                 "on-primary-container": "#6c4e00",
                 "on-tertiary-container": "#005b6c",
                 "primary": "#ffdfa7",
-                "on-secondary-container": "#d4b06c",
+                "on-secondary": "#412d00",
                 "surface-container-low": "#1c1b1b",
                 "surface-container-highest": "#353534",
                 "secondary": "#e6c27c",
@@ -189,13 +189,13 @@
 <!-- Play Cursor -->
 <div id="play-cursor">PLAY</div>
 <!-- Top Navigation -->
-<nav class="fixed top-0 w-full z-[100] bg-black h-20 flex items-center px-4 md:px-8 opacity-0 pointer-events-none transition-opacity duration-700 border-b border-white/5" id="main-nav">
+<nav class="fixed top-0 w-full z-[100] bg-black h-20 flex items-center px-4 md:px-8 hidden border-b border-white/5" id="main-nav">
 <div class="flex-none">
 <button class="text-[#ffbc00] p-2 hover:bg-white/5 transition-all duration-500 cursor-pointer active:scale-95 ease-in-out" onclick="document.body.classList.toggle('menu-open')">
 <span class="material-symbols-outlined">add</span>
 </button>
 </div>
-<div class="grow text-center text-xl md:text-4xl font-black tracking-tighter text-[#ffbc00] font-headline cursor-pointer active:scale-95 ease-in-out">
+<div class="grow text-center text-xl md:text-3xl font-bold tracking-tighter text-[#ffbc00] font-headline">
         Simon Köcher - An Application
     </div>
 <div class="flex-none w-10"></div>
@@ -208,33 +208,16 @@
 <a class="font-headline text-4xl md:text-8xl font-bold text-on-surface hover:text-primary transition-colors uppercase tracking-tighter" href="#application-video" onclick="document.body.classList.remove('menu-open')">That's me</a>
 <a class="font-headline text-4xl md:text-8xl font-bold text-on-surface hover:text-primary transition-colors uppercase tracking-tighter" href="#contact" onclick="document.body.classList.remove('menu-open')">Contact</a>
 </div>
-<!-- SECTION 1: LANDING HERO -->
-<section class="relative h-screen w-full flex items-center justify-center overflow-hidden bg-black" id="hero-section">
-<div class="hero-video-container" id="video-container">
-<!-- Intro video from framebrains GitHub -->
-<video autoplay="" id="bg-video-hero" loop="" muted="" playsinline="">
-<source src="https://framebrains.github.io/FLICKER.mp4" type="video/mp4"/>
-</video>
-</div>
-<div class="absolute inset-0 z-20 flex items-center justify-center bg-black/20 px-4 text-center" id="hero-overlay">
-<button class="font-pirata text-white font-normal text-5xl md:text-8xl uppercase tracking-tighter hover:scale-105 transition-transform duration-500 cinematic-glow" onclick="enterExperience()">PRESS TO ENTER</button>
-</div>
-<div class="absolute inset-0 z-30 hidden items-center justify-center bg-black px-4 text-center" id="replay-overlay">
-<button class="font-headline text-white font-black text-5xl md:text-8xl uppercase tracking-tighter hover:scale-105 transition-transform duration-500 flex items-center gap-4" onclick="replayExperience()">
-<span class="material-symbols-outlined text-5xl md:text-7xl">replay</span>
-            REPLAY
-        </button>
-</div>
-</section>
+<main class="hidden" id="main-content">
 <!-- SECTION 2: APPLICATION VIDEO -->
-<section class="relative h-[60vh] md:h-[70vh] w-full flex flex-col md:flex-row bg-surface overflow-hidden" id="application-video">
+<section class="relative h-[100vh] w-full flex flex-col md:flex-row bg-surface overflow-hidden" id="application-video">
 <div class="w-full md:w-1/2 h-full bg-surface-container-lowest relative group custom-cursor-area" onclick="openVideoModal('1181183507')" onmouseenter="document.body.classList.add('cursor-active')" onmouseleave="document.body.classList.remove('cursor-active')">
-<img alt="Vision" class="w-full h-full object-cover opacity-80 grayscale md:group-hover:grayscale-0 transition-all duration-1000" src="https://lh3.googleusercontent.com/aida/ADBb0ujkyngF6Uohlh0gHmUyxneR6YznODClDciAWBjvZJU64wBkhoCwj5-4H2Xp8BrLJTMV71-4hvs_yAduhc8Ie55-qPOaUjTC5yqWs_26A7HWAmbqg3gUQxtSoKd1pwKJaM2aXhb5_EuSfs9KC4zbM3QhGigppUYSpp5cfGj66AvQa_mNSLZIbYJdf6Eq4z6JCEgoTrtk1nVvu3DID1tYLN6yDRF0XXG-q2rHmbn2l53z2bEKceyXTH8RjAGd48UvSNMqSPUbFTeavw"/>
+<img alt="Simon Köcher" class="w-full h-full object-cover opacity-80 grayscale md:group-hover:grayscale-0 transition-all duration-1000" src="https://lh3.googleusercontent.com/aida/ADBb0ujkyngF6Uohlh0gHmUyxneR6YznODClDciAWBjvZJU64wBkhoCwj5-4H2Xp8BrLJTMV71-4hvs_yAduhc8Ie55-qPOaUjTC5yqWs_26A7HWAmbqg3gUQxtSoKd1pwKJaM2aXhb5_EuSfs9KC4zbM3QhGigppUYSpp5cfGj66AvQa_mNSLZIbYJdf6Eq4z6JCEgoTrtk1nVvu3DID1tYLN6yDRF0XXG-q2rHmbn2l53z2bEKceyXTH8RjAGd48UvSNMqSPUbFTeavw"/>
 </div>
 <div class="w-full md:w-1/2 h-full flex flex-col justify-center items-center md:items-start px-8 md:px-24 bg-surface">
 <div class="border-l-4 border-primary-container pl-6 md:pl-10 py-4 flex flex-col justify-center">
 <h2 class="font-headline text-4xl md:text-7xl font-black tracking-tighter uppercase leading-[0.9]">
-                my <span class="text-primary-container">(first)</span><br/>application <span class="text-primary-container">video</span>
+                    my <span class="text-primary-container">(first)</span><br/>application <span class="text-primary-container">video</span>
 </h2>
 </div>
 </div>
@@ -306,28 +289,28 @@
 <div class="absolute inset-0 z-0">
 <div class="absolute inset-0 bg-black/70 z-10"></div>
 <video autoplay="" class="w-full h-full object-cover opacity-30" loop="" muted="" playsinline="">
-<source src="https://framebrains.github.io/infinity.mp4" type="video/mp4"/>
+<source src="https://raw.githubusercontent.com/framebrains/assets/main/infinity.mp4" type="video/mp4"/>
 </video>
 <div class="absolute inset-0 scanline opacity-20 pointer-events-none z-20"></div>
 </div>
 <div class="relative z-20 w-full max-w-6xl px-4 md:px-8 flex flex-col items-center">
 <div class="mb-12 md:mb-16 text-center">
 <h2 class="font-headline text-5xl md:text-[140px] font-black tracking-tighter text-on-surface leading-[0.7] cinematic-glow">
-                LET'S <span class="text-primary-container">TALK</span>
+                    LET'S <span class="text-primary-container">TALK</span>
 </h2>
 </div>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 w-full max-w-4xl border-t border-b border-white/10 py-10 md:py-12 mb-12 md:mb-16 relative">
 <div class="flex flex-col items-center md:items-start group">
 <p class="text-xs uppercase tracking-[0.2em] text-outline mb-2 opacity-50">Email</p>
-<a class="font-headline text-lg md:text-3xl font-bold text-on-surface hover:text-primary transition-all duration-300 tracking-tight break-all text-center md:text-left" href="mailto:hello@simonkoecher.com">
-                    hello@simonkoecher.com
-                </a>
+<a class="font-headline text-lg md:text-3xl font-bold text-on-surface hover:text-primary transition-all duration-300 tracking-tight break-all text-center md:text-left" href="mailto:hello@simonkoecher.com?subject=We%20at%20Framebrains%20want%20to%20thank%20you%20for%20your%20application&amp;body=You%20are%20hired!">
+                        hello@simonkoecher.com
+                    </a>
 </div>
 <div class="flex flex-col items-center md:items-end group">
 <p class="text-xs uppercase tracking-[0.2em] text-outline mb-2 opacity-50">Phone</p>
 <p class="font-headline text-lg md:text-3xl font-bold text-on-surface tracking-tight tabular-nums">
-                    +46 70 921 4543
-                </p>
+                        +46 70 921 4543
+                    </p>
 </div>
 <!-- Decorative Corners -->
 <div class="absolute -top-[1px] -left-[1px] w-4 h-4 border-t border-l border-primary/40"></div>
@@ -337,20 +320,32 @@
 </div>
 </div>
 <div class="relative z-20 w-full flex justify-center pb-12">
-<img alt="Drake GIF" class="w-[200px] opacity-60 grayscale hover:grayscale-0 transition-all duration-700 pointer-events-none" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBzp1ZuTKtA4snAwkjDRlLUPhEDxJV3rBstgOqktgFJLSyAyceyI06x8LwuNhdlCF3Re2ygKArQD0Js9w7VtVQ2SVuPSvLlePEki-UZjpsg-eUjExJHV1TLejo1SMIAt3YNpSSGDcS2uyLJofORMn9YYm_3hTcktAQ5CiUqUP6xkp9556ZW-zGBg9Sio6iIoWmcoObrIQVlpmmzF8caObHucEbuBZIXmdTghuWxDwije0kI-44JpkZYLPXqT92aEWxeG8ENXp1-MDw"/>
+<img alt="Drake GIF" class="w-[200px] opacity-60 grayscale hover:grayscale-0 transition-all duration-700 pointer-events-none" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDpdpzgQzjtrupSirXhiB3bq5Nhyeow7ul0RKp9TZ3J8rRb-BKf0mbTkHR8mTWYDzOwG9Nrp532lepKp3J-Zg681D_DUS_fXPCzmwmRdzIFl_CN9Cd4YrzTQsJajkyV66aQLzgBPM9Kg7Hm4PddnE8PJ29eXzoxTr6ZPrAHp_TE-ujVBIb5YjzHOhim84rKV-fpMLkPTKGKBN1xYKGYXhke72Yz2qRgM2ucFP_Pv6s1xKUiKwnvQfW46HEnS7Ql9n94DgGdvS6b8p8"/>
 </div>
 </section>
 <!-- Footer -->
 <footer class="bg-[#0e0e0e] w-full py-12 md:py-16 px-8 border-t border-white/5">
 <div class="flex flex-col md:flex-row justify-center items-center w-full max-w-7xl mx-auto">
 <div class="font-headline text-xs md:text-sm font-semibold uppercase tracking-[0.2em] md:tracking-[0.4em] text-neutral-500 text-center">
-            © 2026 SIMON KÖCHER. ACCESS GRANTED.
-        </div>
+                © 2026 SIMON KÖCHER. ACCESS GRANTED.
+            </div>
 </div>
 </footer>
+</main>
+<!-- SECTION 1: LANDING HERO (Intro Layer) -->
+<section class="fixed inset-0 z-[200] w-full flex items-center justify-center overflow-hidden bg-black" id="hero-section">
+<div class="hero-video-container">
+<video autoplay="" id="bg-video-hero" loop="" muted="" playsinline="">
+<source src="https://raw.githubusercontent.com/framebrains/assets/main/FLICKER.mp4" type="video/mp4"/>
+</video>
+</div>
+<div class="absolute inset-0 z-20 flex items-center justify-center bg-black/20 px-4 text-center">
+<button class="font-pirata text-white text-[36px] uppercase tracking-tighter hover:scale-110 transition-transform duration-300 cinematic-glow" onclick="enterExperience()">PRESS TO ENTER</button>
+</div>
+</section>
 <!-- Video Modal -->
-<div class="fixed inset-0 z-[120] hidden items-center justify-center bg-black/95 backdrop-blur-xl" id="video-modal">
-<div class="relative w-[70vw] h-[70vh] bg-black shadow-2xl flex items-center justify-center">
+<div class="fixed inset-0 z-[250] hidden items-center justify-center bg-black/95 backdrop-blur-xl" id="video-modal">
+<div class="relative w-[80vw] h-[80vh] bg-black shadow-2xl flex items-center justify-center">
 <button class="absolute -top-12 right-0 text-white hover:text-[#ffbc00] transition-colors flex items-center gap-2 font-headline uppercase tracking-widest text-lg" onclick="closeVideoModal()">
             Close <span class="material-symbols-outlined text-3xl">close</span>
 </button>
@@ -360,46 +355,28 @@
 <script>
     let mainPlayer;
     let modalPlayer;
-    const vimeoId = '721227434';
+    const showreelId = '721227434';
 
     function enterExperience() {
-        const container = document.getElementById('video-container');
-        const overlay = document.getElementById('hero-overlay');
-        const replayOverlay = document.getElementById('replay-overlay');
-        const nav = document.getElementById('main-nav');
+        const heroSection = document.getElementById('hero-section');
+        const mainNav = document.getElementById('main-nav');
+        const mainContent = document.getElementById('main-content');
         
-        // Corrected behavior: Hide the intro video/overlay and reveal content
-        // The prompt says "Clicking the button must hide the intro layer to reveal the main content"
-        // We do this by swapping out the background video and unlocking the experience
+        // Hide Intro Layer
+        heroSection.classList.add('hidden');
         
-        container.innerHTML = `<iframe allow="autoplay; fullscreen" allowfullscreen="" frameborder="0" id="vimeo-player" src="https://player.vimeo.com/video/${vimeoId}?autoplay=1&amp;byline=0&amp;title=0&amp;portrait=0" class="w-full h-full object-cover"></iframe>`;
-        
-        overlay.classList.add('hidden');
-        replayOverlay.classList.add('hidden');
-
-        // Reveal Nav and Unlock Scroll
-        nav.classList.remove('opacity-0', 'pointer-events-none');
-        nav.classList.add('opacity-100');
+        // Reveal App Content
+        mainNav.classList.remove('hidden');
+        mainNav.classList.add('flex');
+        mainContent.classList.remove('hidden');
         document.body.classList.remove('scroll-lock');
 
-        const iframe = document.getElementById('vimeo-player');
-        mainPlayer = new Vimeo.Player(iframe);
-
-        mainPlayer.on('ended', function() {
-            replayOverlay.classList.remove('hidden');
-            replayOverlay.classList.add('flex');
-        });
-    }
-
-    function replayExperience() {
-        const replayOverlay = document.getElementById('replay-overlay');
-        replayOverlay.classList.add('hidden');
-        replayOverlay.classList.remove('flex');
+        // Play Main Showreel with sound in the first section (app-video)
+        const appVideoContainer = document.querySelector('#application-video .group');
+        appVideoContainer.innerHTML = `<iframe allow="autoplay; fullscreen" allowfullscreen="" frameborder="0" id="main-vimeo-player" src="https://player.vimeo.com/video/${showreelId}?autoplay=1&byline=0&title=0&portrait=0" class="w-full h-full object-cover"></iframe>`;
         
-        if (mainPlayer) {
-            mainPlayer.setCurrentTime(0);
-            mainPlayer.play();
-        }
+        const iframe = document.getElementById('main-vimeo-player');
+        mainPlayer = new Vimeo.Player(iframe);
     }
 
     function updateCursor(e) {
@@ -452,7 +429,6 @@
         }
     }
 
-    // Ensure scrolling starts at top on load
     window.onbeforeunload = function () {
         window.scrollTo(0, 0);
     }
