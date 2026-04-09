@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-
-<html class="dark" lang="en"><head>
+<html class="dark" lang="en">
+<head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Simon Köcher | An Application</title>
@@ -70,7 +70,7 @@
             },
             "fontFamily": {
                 "headline": ["Montserrat", "sans-serif"],
-                "body": ["Montserrat", "sans-serif"],
+                "body":["Montserrat", "sans-serif"],
                 "label": ["Montserrat", "sans-serif"],
                 "pirata": ["Pirata One", "system-ui"]
             }
@@ -91,7 +91,7 @@
             overflow-y: scroll; 
             scroll-behavior: smooth; 
             font-family: 'Montserrat', sans-serif;
-            background-color: #000;
+            background-color: #131313;
         }
         
         body.scroll-lock {
@@ -118,7 +118,7 @@
         }
 
         .cinematic-glow {
-            text-shadow: 0 0 20px rgba(255, 188, 0, 0.5);
+            text-shadow: 0 0 20px rgba(255, 188, 0, 0.3);
         }
         .scanline {
             background: linear-gradient(to bottom, transparent 50%, rgba(255, 188, 0, 0.05) 50%);
@@ -185,7 +185,7 @@
     </style>
 <script src="https://player.vimeo.com/api/player.js"></script>
 </head>
-<body class="bg-black text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container scroll-lock" onmousemove="updateCursor(event)">
+<body class="bg-surface text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container scroll-lock" onmousemove="updateCursor(event)">
 <!-- Play Cursor -->
 <div id="play-cursor">PLAY</div>
 <!-- Top Navigation -->
@@ -211,13 +211,13 @@
 <!-- SECTION 1: LANDING HERO -->
 <section class="relative h-screen w-full flex items-center justify-center overflow-hidden bg-black" id="hero-section">
 <div class="hero-video-container" id="video-container">
-<!-- Flicker background video from framebrains repo -->
+<!-- Intro video fixed with relative path -->
 <video autoplay="" id="bg-video-hero" loop="" muted="" playsinline="">
-<source src="https://raw.githubusercontent.com/framebrains/repo-name/main/FLICKER.mp4" type="video/mp4"/>
+<source src="FLICKER.mp4" type="video/mp4"/>
 </video>
 </div>
-<div class="absolute inset-0 z-20 flex items-center justify-center bg-black/40 px-4 text-center" id="hero-overlay">
-<button class="font-pirata text-white font-normal text-[36px] uppercase tracking-tighter hover:scale-105 transition-transform duration-500 cinematic-glow" onclick="enterExperience()">PRESS TO ENTER</button>
+<div class="absolute inset-0 z-20 flex items-center justify-center bg-black/20 px-4 text-center" id="hero-overlay">
+<button class="font-pirata text-white font-normal text-5xl md:text-8xl uppercase tracking-tighter hover:scale-105 transition-transform duration-500 cinematic-glow" onclick="enterExperience()">PRESS TO ENTER</button>
 </div>
 <div class="absolute inset-0 z-30 hidden items-center justify-center bg-black px-4 text-center" id="replay-overlay">
 <button class="font-headline text-white font-black text-5xl md:text-8xl uppercase tracking-tighter hover:scale-105 transition-transform duration-500 flex items-center gap-4" onclick="replayExperience()">
@@ -227,13 +227,13 @@
 </div>
 </section>
 <!-- SECTION 2: APPLICATION VIDEO -->
-<section class="relative h-screen w-full flex flex-col md:flex-row bg-black overflow-hidden" id="application-video">
-<div class="w-full md:w-1/2 h-full bg-black relative group custom-cursor-area flex items-center justify-center" onclick="openVideoModal('1181183507', 70)" onmouseenter="document.body.classList.add('cursor-active')" onmouseleave="document.body.classList.remove('cursor-active')">
-<img alt="Simon Köcher" class="w-full h-full object-cover grayscale md:group-hover:grayscale-0 transition-all duration-1000" src="https://lh3.googleusercontent.com/aida/ADBb0ujkyngF6Uohlh0gHmUyxneR6YznODClDciAWBjvZJU64wBkhoCwj5-4H2Xp8BrLJTMV71-4hvs_yAduhc8Ie55-qPOaUjTC5yqWs_26A7HWAmbqg3gUQxtSoKd1pwKJaM2aXhb5_EuSfs9KC4zbM3QhGigppUYSpp5cfGj66AvQa_mNSLZIbYJdf6Eq4z6JCEgoTrtk1nVvu3DID1tYLN6yDRF0XXG-q2rHmbn2l53z2bEKceyXTH8RjAGd48UvSNMqSPUbFTeavw"/>
+<section class="relative h-[60vh] md:h-[70vh] w-full flex flex-col md:flex-row bg-surface overflow-hidden" id="application-video">
+<div class="w-full md:w-1/2 h-full bg-surface-container-lowest relative group custom-cursor-area" onclick="openVideoModal('1181183507')" onmouseenter="document.body.classList.add('cursor-active')" onmouseleave="document.body.classList.remove('cursor-active')">
+<img alt="Vision" class="w-full h-full object-cover opacity-80 grayscale md:group-hover:grayscale-0 transition-all duration-1000" src="https://lh3.googleusercontent.com/aida/ADBb0ujkyngF6Uohlh0gHmUyxneR6YznODClDciAWBjvZJU64wBkhoCwj5-4H2Xp8BrLJTMV71-4hvs_yAduhc8Ie55-qPOaUjTC5yqWs_26A7HWAmbqg3gUQxtSoKd1pwKJaM2aXhb5_EuSfs9KC4zbM3QhGigppUYSpp5cfGj66AvQa_mNSLZIbYJdf6Eq4z6JCEgoTrtk1nVvu3DID1tYLN6yDRF0XXG-q2rHmbn2l53z2bEKceyXTH8RjAGd48UvSNMqSPUbFTeavw"/>
 </div>
-<div class="w-full md:w-1/2 h-full flex flex-col justify-center items-center md:items-start px-8 md:px-24 bg-black">
+<div class="w-full md:w-1/2 h-full flex flex-col justify-center items-center md:items-start px-8 md:px-24 bg-surface">
 <div class="border-l-4 border-primary-container pl-6 md:pl-10 py-4 flex flex-col justify-center">
-<h2 class="font-headline text-4xl md:text-7xl font-black tracking-tighter uppercase leading-[0.9] text-white">
+<h2 class="font-headline text-4xl md:text-7xl font-black tracking-tighter uppercase leading-[0.9]">
                 my <span class="text-primary-container">(first)</span><br/>application <span class="text-primary-container">video</span>
 </h2>
 </div>
@@ -248,7 +248,7 @@
 </div>
 <div class="flex flex-col md:flex-row w-full h-full custom-cursor-area" onmouseenter="document.body.classList.add('cursor-active')" onmouseleave="document.body.classList.remove('cursor-active')">
 <!-- Slice 1 -->
-<div class="accordion-slice relative h-1/4 md:h-full overflow-hidden group border-b md:border-b-0 md:border-r border-white/5" onclick="openVideoModal('1113549824', 80)">
+<div class="accordion-slice relative h-1/4 md:h-full overflow-hidden group border-b md:border-b-0 md:border-r border-white/5" onclick="openVideoModal('1113549824')">
 <div class="absolute inset-0 w-full h-full z-0 pointer-events-none">
 <iframe class="w-full h-full object-cover" frameborder="0" src="https://player.vimeo.com/video/1113549824?background=1"></iframe>
 </div>
@@ -261,7 +261,7 @@
 </div>
 </div>
 <!-- Slice 2 -->
-<div class="accordion-slice relative h-1/4 md:h-full overflow-hidden group border-b md:border-b-0 md:border-r border-white/5" onclick="openVideoModal('875093743', 80)">
+<div class="accordion-slice relative h-1/4 md:h-full overflow-hidden group border-b md:border-b-0 md:border-r border-white/5" onclick="openVideoModal('875093743')">
 <div class="absolute inset-0 w-full h-full z-0 pointer-events-none">
 <iframe class="w-full h-full object-cover" frameborder="0" src="https://player.vimeo.com/video/875093743?background=1"></iframe>
 </div>
@@ -274,7 +274,7 @@
 </div>
 </div>
 <!-- Slice 3 -->
-<div class="accordion-slice relative h-1/4 md:h-full overflow-hidden group border-b md:border-b-0 md:border-r border-white/5" onclick="openVideoModal('1133765348', 80)">
+<div class="accordion-slice relative h-1/4 md:h-full overflow-hidden group border-b md:border-b-0 md:border-r border-white/5" onclick="openVideoModal('1133765348')">
 <div class="absolute inset-0 w-full h-full z-0 pointer-events-none">
 <iframe class="w-full h-full object-cover" frameborder="0" src="https://player.vimeo.com/video/1133765348?background=1"></iframe>
 </div>
@@ -287,7 +287,7 @@
 </div>
 </div>
 <!-- Slice 4 -->
-<div class="accordion-slice relative h-1/4 md:h-full overflow-hidden group" onclick="openVideoModal('576940667', 80)">
+<div class="accordion-slice relative h-1/4 md:h-full overflow-hidden group" onclick="openVideoModal('576940667')">
 <div class="absolute inset-0 w-full h-full z-0 pointer-events-none">
 <iframe class="w-full h-full object-cover" frameborder="0" src="https://player.vimeo.com/video/576940667?background=1"></iframe>
 </div>
@@ -305,8 +305,9 @@
 <section class="relative min-h-screen w-full flex flex-col justify-center items-center overflow-hidden bg-black" id="contact">
 <div class="absolute inset-0 z-0">
 <div class="absolute inset-0 bg-black/70 z-10"></div>
+<!-- Contact Background video fixed with relative path -->
 <video autoplay="" class="w-full h-full object-cover opacity-30" loop="" muted="" playsinline="">
-<source src="https://raw.githubusercontent.com/framebrains/repo-name/main/infinity.mp4" type="video/mp4"/>
+<source src="infinity.mp4" type="video/mp4"/>
 </video>
 <div class="absolute inset-0 scanline opacity-20 pointer-events-none z-20"></div>
 </div>
@@ -319,7 +320,7 @@
 <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 w-full max-w-4xl border-t border-b border-white/10 py-10 md:py-12 mb-12 md:mb-16 relative">
 <div class="flex flex-col items-center md:items-start group">
 <p class="text-xs uppercase tracking-[0.2em] text-outline mb-2 opacity-50">Email</p>
-<a class="font-headline text-lg md:text-3xl font-bold text-on-surface hover:text-primary transition-all duration-300 tracking-tight break-all text-center md:text-left" href="mailto:hello@simonkoecher.com?subject=You are hired!">
+<a class="font-headline text-lg md:text-3xl font-bold text-on-surface hover:text-primary transition-all duration-300 tracking-tight break-all text-center md:text-left" href="mailto:hello@simonkoecher.com">
                     hello@simonkoecher.com
                 </a>
 </div>
@@ -337,11 +338,12 @@
 </div>
 </div>
 <div class="relative z-20 w-full flex justify-center pb-12">
-<img alt="Drake GIF" class="w-[200px] opacity-60 grayscale hover:grayscale-0 transition-all duration-700 pointer-events-none" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB2Y9KUcExdcI5hVAuzKle9iGP8iO36tmnzh3P4VZnICM4WN66DeFX-y50wQ7oqPaFZYWBwK7Ce52Dgo5MIdc2c91Hi44jloR7dbr9qv5aoQs19tjjkNef4B58ia2A71YpJM8iROnxaLZ7dtUBkHvsLs9bW_-N_MsS8rtl7FfvTXoAKhbM4BHQzvUHhYmDa9eF8AW9OXgnz0dGGsBvbXa6FNQMY6Od6zNfhmnmO2bVStWJN6cvsbdbhM9Dt2ZHXaMGwTYKQVPyewMM"/>
+<!-- GIF fixed with relative path -->
+<img alt="Drake GIF" class="w-[200px] opacity-60 grayscale hover:grayscale-0 transition-all duration-700 pointer-events-none" src="Drake.gif"/>
 </div>
 </section>
 <!-- Footer -->
-<footer class="bg-black w-full py-12 md:py-16 px-8 border-t border-white/5">
+<footer class="bg-[#0e0e0e] w-full py-12 md:py-16 px-8 border-t border-white/5">
 <div class="flex flex-col md:flex-row justify-center items-center w-full max-w-7xl mx-auto">
 <div class="font-headline text-xs md:text-sm font-semibold uppercase tracking-[0.2em] md:tracking-[0.4em] text-neutral-500 text-center">
             © 2026 SIMON KÖCHER. ACCESS GRANTED.
@@ -350,7 +352,7 @@
 </footer>
 <!-- Video Modal -->
 <div class="fixed inset-0 z-[120] hidden items-center justify-center bg-black/95 backdrop-blur-xl" id="video-modal">
-<div class="relative bg-black shadow-2xl flex items-center justify-center transition-all duration-500" id="modal-content-wrapper">
+<div class="relative w-[70vw] h-[70vh] bg-black shadow-2xl flex items-center justify-center">
 <button class="absolute -top-12 right-0 text-white hover:text-[#ffbc00] transition-colors flex items-center gap-2 font-headline uppercase tracking-widest text-lg" onclick="closeVideoModal()">
             Close <span class="material-symbols-outlined text-3xl">close</span>
 </button>
@@ -368,7 +370,7 @@
         const replayOverlay = document.getElementById('replay-overlay');
         const nav = document.getElementById('main-nav');
         
-        container.innerHTML = `<iframe allow="autoplay; fullscreen" allowfullscreen="" frameborder="0" id="vimeo-player" src="https://player.vimeo.com/video/${vimeoId}?autoplay=1&byline=0&title=0&portrait=0" class="w-full h-full object-cover"></iframe>`;
+        container.innerHTML = `<iframe allow="autoplay; fullscreen" allowfullscreen="" frameborder="0" id="vimeo-player" src="https://player.vimeo.com/video/${vimeoId}?autoplay=1&amp;byline=0&amp;title=0&amp;portrait=0" class="w-full h-full object-cover"></iframe>`;
         
         overlay.classList.add('hidden');
         replayOverlay.classList.add('hidden');
@@ -404,13 +406,9 @@
         cursor.style.top = e.clientY + 'px';
     }
 
-    function openVideoModal(id, sizePercentage) {
+    function openVideoModal(id) {
         const modal = document.getElementById('video-modal');
         const container = document.getElementById('modal-player-container');
-        const wrapper = document.getElementById('modal-content-wrapper');
-        
-        wrapper.style.width = sizePercentage + 'vw';
-        wrapper.style.height = sizePercentage + 'vh';
         
         container.innerHTML = `<iframe allow="autoplay; fullscreen" allowfullscreen="" frameborder="0" height="100%" id="modal-vimeo-iframe" src="https://player.vimeo.com/video/${id}?autoplay=1" width="100%"></iframe>`;
         
@@ -457,4 +455,5 @@
         window.scrollTo(0, 0);
     }
 </script>
-</body></html>
+</body>
+</html>
